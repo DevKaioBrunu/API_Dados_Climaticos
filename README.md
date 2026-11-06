@@ -91,29 +91,6 @@ A aplicação registra o grupo de rotas:
 Os detalhes de cada endpoint dependem dos módulos de rotas carregados por
 `backend/src/index.js`.
 
-### Rota inexistente
-
-Uma rota não registrada retorna HTTP 404 com o caminho solicitado:
-
-```json
-{
-  "erro": true,
-  "codigo": "ROTA_NAO_ENCONTRADA",
-  "mensagem": "Rota nao encontrada",
-  "rota": "/api/v1/exemplo"
-}
-```
-
-## Serviços externos
-
-A verificação de saúde utiliza a API de municípios do IBGE:
-
-```text
-https://servicodados.ibge.gov.br/api/v1/localidades/estados/CE/municipios
-```
-
-As rotas de clima e cidades podem utilizar serviços externos adicionais
-conforme suas implementações.
 
 ## Estrutura atual
 
