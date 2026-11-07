@@ -3,7 +3,7 @@
 # API Dados Climáticos
 
 API REST em Node.js com Express para consultar dados geográficos de municípios
-brasileiros e dados climáticos.
+brasileiros e dados climáticos..
 
 ## Requisitos
 
