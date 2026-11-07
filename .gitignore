@@ -36,6 +36,7 @@ $RECYCLE.BIN/
 *.swp
 *.swo
 *~
+x/
 
 # Testes e cobertura
 coverage/
@@ -46,5 +47,3 @@ coverage/
 docker-compose.override.yml
 .docker/
 
-# Pasta solicitada
-x/
