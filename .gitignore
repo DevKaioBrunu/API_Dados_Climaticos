@@ -36,7 +36,7 @@ $RECYCLE.BIN/
 *.swp
 *.swo
 *~
-x/
+X/
 
 # Testes e cobertura
 coverage/
