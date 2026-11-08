@@ -3,7 +3,7 @@ const axios = require("axios");
 
 jest.mock("axios");
 
-const app = require("../src/index");
+const app = require("../index");
 
 describe("GET /api/v1/cidades/:sigla_uf", () => {
   beforeEach(() => {
