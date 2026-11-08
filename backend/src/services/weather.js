@@ -1,4 +1,4 @@
-const { getWithRetry } = require("../../../X/Código fonte antigo/api-dados-climaticos-main/src/services/httpClient");
+const { getWithRetry } = require("./httpClient");
 
 function logExternalError(service, error, url) {
   const status = error.response?.status;

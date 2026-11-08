@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { buscarCidade } = require('../../../X/Código fonte antigo/api-dados-climaticos-main/src/services/ibge');
-const { buscarClima } = require('../../../X/Código fonte antigo/api-dados-climaticos-main/src/services/weather');
+const { buscarCidade } = require('../services/ibge');
+const { buscarClima } = require('../services/weather');
 
 router.get('/:nome_cidade', async (req, res) => {
   const { nome_cidade } = req.params;
