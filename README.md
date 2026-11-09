@@ -3,6 +3,12 @@
 API REST em Node.js e Express para consultar municípios brasileiros no IBGE e
 previsões climáticas na Open-Meteo.
 
+## Desenvolvimento com IA
+
+O fluxo de especificações, prompts, skills e registro de uso de IA está em
+[`docs/guia-uso-de-ia.md`](docs/guia-uso-de-ia.md). Os usos efetivos de IA são
+registrados em [`docs/ia.md`](docs/ia.md).
+
 ## Requisitos
 
 - Node.js 18 ou superior

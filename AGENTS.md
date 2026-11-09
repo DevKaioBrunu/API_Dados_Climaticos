@@ -67,3 +67,4 @@ Não alterar arquivos de outra frente sem apresentar a necessidade.
 - Registrar decisões técnicas relevantes.
 - Atualizar docs/ia.md com os usos relevantes de IA.
 - Manter CONTRIBUTORS.md coerente com as contribuições realizadas.
+- Seguir o fluxo e o padrão de acompanhamento descritos em docs/guia-uso-de-ia.md e .spec/README.md.

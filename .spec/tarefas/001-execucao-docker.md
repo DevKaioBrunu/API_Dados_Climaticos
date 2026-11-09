@@ -1,6 +1,6 @@
 # 001 — Execução com Docker Compose
 
-**Estado:** frontend e API servidos pelo Compose e validados por requisições HTTP locais; teste manual dos botões no navegador segue disponível para Daniel.  
+**Estado:** configuração Docker implementada; build e chamadas HTTP locais validados; teste manual dos botões no navegador continua pendente.
 **Responsável informado:** Daniel.  
 **Requisito:** B-TEC-01.  
 **Dependências:** comportamento de inicialização e arquivos necessários ao runtime inspecionados; foi mantida a porta fixa `3000` existente.
@@ -28,14 +28,15 @@ Permitir subir a aplicação (frontend e API) com um único comando via Docker C
 
 Arquivos criados/alterados nesta etapa: `Dockerfile`, `docker-compose.yml`, `.dockerignore`, `frontend/Dockerfile`, `frontend/nginx.conf`, `frontend/index.html`, `frontend/js/api.js`, `frontend/js/app.js`, `docs/execucao-docker.md` e README. Nenhuma dependência npm foi adicionada.
 
-## Critérios de aceite
+## Checklist de aceite
 
-- Compose inicia a aplicação com um único comando documentado.
-- Frontend responde em `http://localhost:8080` e encaminha chamadas `/api/` à API.
-- API responde também diretamente em `http://localhost:3000`.
-- O cliente JavaScript usa a origem atual por padrão; os endpoints do frontend alcançam a API pelo proxy.
-- Arquivos de referência, testes e segredos locais desnecessários não entram na imagem.
-- Documentação registra pré-requisitos, comando, porta e limites da validação.
+- [x] Compose constrói e inicia os dois serviços com um comando (`docker compose up --build --detach`).
+- [x] Frontend e assets respondem em `http://localhost:8080`; `/api/` chega à API pelo proxy Nginx.
+- [x] API responde diretamente em `http://localhost:3000`.
+- [x] O cliente JavaScript usa a origem atual por padrão e mantém fallback local para `file://`; o código foi inspecionado e o endpoint via proxy respondeu.
+- [x] Imagens excluem referências e testes; a API instala somente dependências de produção.
+- [x] Documentação registra pré-requisitos, comandos, portas e limites da validação.
+- [ ] Daniel clica nos botões Health, Cidades e Clima no navegador servido em `http://localhost:8080` e confirma a interface interativa. O host de navegador desta sessão não permitiu automatizar esse passo.
 
 ## Validação anterior da API
 
@@ -44,6 +45,13 @@ Verificações: `docker version` confirmou Client e Server disponíveis; `docker
 ## Validação da extensão com frontend
 
 Em 09/11/2026: `docker compose config` passou para os serviços `api` e `frontend`; `docker compose build --progress plain` construiu ambas as imagens; `docker compose up --build --detach` iniciou os dois serviços. `GET /` em `http://localhost:8080/` respondeu HTTP 200 com o HTML esperado; `GET /js/api.js` respondeu HTTP 200 e contém o fallback para `window.location.origin`. Pelo proxy do Nginx, health respondeu `healthy`, cidades por UF retornou HTTP 200 com uma cidade e clima para Fortaleza retornou HTTP 200 (`Nublado`). Essas chamadas usaram os provedores reais, sem mocks. A API continua acessível diretamente em `http://localhost:3000`. Os containers foram deixados ativos para Daniel abrir e testar a interface no navegador. Não foi possível automatizar clique nos botões porque o serviço de navegador desta sessão estava indisponível. Testes automatizados não foram executados.
+
+## Histórico de andamento
+
+| Data | Participante | Atualização/decisão | Evidência/resultado |
+|---|---|---|---|
+| 2026-11-09 | Codex, sob orientação e autorização de Daniel | Implementada a configuração Compose da API; depois, o escopo foi ampliado para servir o frontend em Nginx e encaminhar `/api/` à API. Commit de implementação: `3c0145d`. | `docker compose config` e builds passaram; HTML/CSS/JS, health, cidades e clima responderam por HTTP; clima usou IBGE e Open-Meteo reais. A execução automatizada de cliques no navegador não foi possível. |
+| 2026-11-09 | Daniel | Executou `docker compose down` após a conferência e consultou containers/imagens locais. | Containers e rede foram removidos; as imagens permaneceram instaladas. |
 
 ## Riscos e decisões pendentes
 

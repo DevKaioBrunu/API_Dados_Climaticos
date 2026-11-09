@@ -19,8 +19,14 @@ O `package.json` atual tem scripts `start`, `dev`, `test` e `check-routes`; não
 
 ## Critérios de aceite
 
-- Comandos documentados e reproduzíveis para lint e testes.
-- Cobertura mínima explicitamente declarada e respeitada, com exclusões justificadas.
-- CI executa instalação, lint e testes e possui evidência de execução verde.
+- [ ] Comandos documentados e reproduzíveis para lint e testes.
+- [ ] Cobertura mínima explicitamente declarada e respeitada, com exclusões justificadas.
+- [ ] CI executa instalação, lint e testes e possui evidência de execução verde.
 
 **Validação:** pendente de implementação autorizada. Não foi configurado nem executado CI nesta etapa.
+
+## Histórico de andamento
+
+| Data | Participante | Atualização/decisão | Evidência/resultado |
+|---|---|---|---|
+| 2026-11-09 | Codex, sob orientação de Daniel | Rascunho transversal preparado; responsável ainda não confirmado e implementação não iniciada. | Inspeção de `package.json`: há `test`, mas não há script `lint` declarado. |

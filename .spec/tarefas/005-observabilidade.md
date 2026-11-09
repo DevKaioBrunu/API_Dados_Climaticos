@@ -11,8 +11,22 @@ Planejar logs estruturados, pelo menos uma métrica e um SLO simples, escolhidos
 
 A fonte do curso não escolhe biblioteca, métrica, indicador ou meta numérica. Não copiar escolhas de exemplo como obrigações e não inventar uma meta antes de definir o indicador e a forma de medição.
 
-## Dependências e aceite
+## Dependências
 
-Definir responsável e decisões com a equipe, avaliar impacto em rotas/serviços e selecionar evidência de medição. Aceite: comportamento documentado, métrica observável e SLO verificável com janela e método declarados.
+Definir responsável e decisões com a equipe, avaliar impacto em rotas/serviços e selecionar evidência de medição.
 
 **Validação:** pendente. Nenhuma instrumentação foi implementada ou medida nesta etapa.
+
+## Checklist de aceite
+
+- [ ] Responsável e escolhas de observabilidade alinhados com a equipe.
+- [ ] Logs estruturados implementados e comportamento documentado.
+- [ ] Pelo menos uma métrica observável com método de leitura descrito.
+- [ ] SLO declarado com indicador, janela e meta acordados e verificáveis.
+- [ ] Validação realizada e evidências registradas.
+
+## Histórico de andamento
+
+| Data | Participante | Atualização/decisão | Evidência/resultado |
+|---|---|---|---|
+| 2026-11-09 | Codex, sob orientação de Daniel | Rascunho transversal preparado; responsável e decisões ainda não confirmados; nenhuma instrumentação realizada. | Escopo comparado com B-OPE-03/04/05; a fonte não determina biblioteca, métrica específica ou meta numérica. |
