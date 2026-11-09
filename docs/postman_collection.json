@@ -1,0 +1,286 @@
+{
+  "info": {
+    "name": "N703 API Dados Climaticos",
+    "description": "Colecao de testes da API N703 - endpoints health, clima e cidades.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/health",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "health"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Clima - Fortaleza",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/clima/Fortaleza",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "clima",
+            "Fortaleza"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Clima - Sao Paulo",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/clima/S%C3%A3o%20Paulo",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "clima",
+            "São Paulo"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Clima - Rio de Janeiro",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/clima/Rio%20de%20Janeiro",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "clima",
+            "Rio de Janeiro"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Clima - Brasilia",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/clima/Bras%C3%ADlia",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "clima",
+            "Brasília"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Clima - Salvador",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/clima/Salvador",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "clima",
+            "Salvador"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Clima - Belo Horizonte",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/clima/Belo%20Horizonte",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "clima",
+            "Belo Horizonte"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Clima - Curitiba",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/clima/Curitiba",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "clima",
+            "Curitiba"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Clima - Manaus",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/clima/Manaus",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "clima",
+            "Manaus"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Clima - Nome invalido",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/clima/X",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "clima",
+            "X"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Clima - Cidade inexistente",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/clima/CidadeInexistente",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "clima",
+            "CidadeInexistente"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Cidades - CE",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/cidades/CE?limite=10",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "cidades",
+            "CE"
+          ],
+          "query": [
+            {
+              "key": "limite",
+              "value": "10"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Cidades - UF inexistente",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/cidades/XX",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "cidades",
+            "XX"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Cidades - Sigla invalida",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/cidades/ceara",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "cidades",
+            "ceara"
+          ]
+        }
+      }
+    }
+  ]
+}

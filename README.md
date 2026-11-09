@@ -1,16 +1,13 @@
-## PROJETO NIVEL B - FullCycle - Engenharia de Software - 4.0
-
 # API Dados Climáticos
 
-API REST em Node.js com Express para consultar dados geográficos de municípios
-brasileiros e dados climáticos..
+API REST em Node.js e Express para consultar municípios brasileiros no IBGE e
+previsões climáticas na Open-Meteo.
 
 ## Requisitos
 
 - Node.js 18 ou superior
 - npm 9 ou superior
-- Acesso à internet para a verificação de saúde no IBGE e para as consultas
-  aos serviços externos
+- Acesso à internet para consultar o IBGE e a Open-Meteo
 
 ## Instalação
 
@@ -22,8 +19,6 @@ npm install
 
 ## Execução
 
-Os scripts definidos no `package.json` são:
-
 ```bash
 # Produção
 npm start
@@ -32,99 +27,112 @@ npm start
 npm run dev
 ```
 
-O servidor utiliza a porta `3000` e, quando iniciado corretamente, fica
-disponível em:
-
-```text
-http://localhost:3000
-```
-
-## API
-
-Todas as rotas são prefixadas por `/api/v1`.
-
-### Verificação de saúde
-
-```http
-GET /api/v1/health
-```
-
-Essa rota consulta o serviço de municípios do IBGE com timeout de 3 segundos.
-Ela sempre retorna HTTP 200, informando no campo `status` se a aplicação está
-`healthy` ou `degraded`.
-
-Exemplo de resposta quando o IBGE está disponível:
-
-```json
-{
-  "status": "healthy",
-  "versao": "1.0.0",
-  "timestamp": "2026-05-05T19:36:11.491Z"
-}
-```
-
-Quando o serviço externo não está disponível, a resposta inclui:
-
-```json
-{
-  "status": "degraded",
-  "versao": "1.0.0",
-  "timestamp": "2026-05-05T19:36:11.491Z",
-  "motivo": "Servico externo indisponivel"
-}
-```
-
-### Clima
-
-A aplicação registra o grupo de rotas:
-
-```http
-/api/v1/clima
-```
-
-### Cidades
-
-A aplicação registra o grupo de rotas:
-
-```http
-/api/v1/cidades
-```
-
-Os detalhes de cada endpoint dependem dos módulos de rotas carregados por
-`backend/src/index.js`.
-
-
-## Estrutura atual
-
-```text
-.
-├── backend/
-│   └── src/
-│       ├── app.js
-│       └── index.js
-├── package.json
-└── package-lock.json
-```
-
-O ponto de entrada da aplicação é `backend/src/index.js`. O arquivo configura
-Express, CORS, JSON, a porta do servidor, a rota de saúde e o tratamento de
-rotas inexistentes.
-
-## Situação atual
-
-Os scripts `start` e `dev` do `package.json` ainda apontam para
-`src/index.js`, embora o ponto de entrada esteja em `backend/src/index.js`.
-Além disso, o código importa `backend/src/routes/clima.js` e
-`backend/src/routes/cidades.js`, que ainda não estão presentes no repositório.
-Por isso, a execução completa da API depende desses caminhos e módulos serem
-ajustados ou adicionados.
+O servidor fica disponível em `http://localhost:3000`.
 
 ## Testes
-
-O projeto possui o script abaixo no `package.json`:
 
 ```bash
 npm test
 ```
 
-No estado atual do repositório, não há arquivos de teste versionados.
+Para verificar as rotas contra um servidor em execução:
+
+```bash
+npm run check-routes
+```
+
+## API
+
+Todas as rotas usam o prefixo `/api/v1`.
+
+### Health
+
+```http
+GET /api/v1/health
+```
+
+Consulta o serviço de municípios do IBGE. A rota sempre responde `200` e
+informa `healthy` quando o serviço está disponível ou `degraded` quando está
+indisponível.
+
+### Clima por cidade
+
+```http
+GET /api/v1/clima/:nome_cidade
+```
+
+Exemplo:
+
+```http
+GET /api/v1/clima/Fortaleza
+```
+
+O nome é validado no IBGE, as coordenadas são obtidas pela geocodificação da
+Open-Meteo e a previsão de um dia é consultada na Open-Meteo.
+
+Respostas de erro:
+
+- `400 NOME_INVALIDO`
+- `404 CIDADE_NAO_ENCONTRADA`
+- `503 SERVICO_EXTERNO_INDISPONIVEL`
+
+### Cidades por UF
+
+```http
+GET /api/v1/cidades/:sigla_uf?limite=10
+```
+
+Exemplo:
+
+```http
+GET /api/v1/cidades/CE?limite=5
+```
+
+`sigla_uf` deve conter duas letras. O parâmetro `limite` é opcional e aceita
+valores inteiros de `1` a `100`, com padrão `10`.
+
+Respostas de erro:
+
+- `400 SIGLA_UF_INVALIDA`
+- `400 LIMITE_INVALIDO`
+- `404 UF_NAO_ENCONTRADA`
+- `503 SERVICO_EXTERNO_INDISPONIVEL`
+
+### Rota inexistente
+
+Rotas não encontradas retornam `404` em JSON com o código
+`ROTA_NAO_ENCONTRADA`.
+
+## Estrutura
+
+```text
+.
+├── backend/
+│   └── src/
+│       ├── index.js
+│       ├── routes/
+│       │   ├── cidades.js
+│       │   └── clima.js
+│       ├── services/
+│       │   ├── httpClient.js
+│       │   ├── ibge.js
+│       │   └── weather.js
+│       └── tests/
+│           ├── checkRoutes.js
+│           ├── cidades.test.js
+│           ├── clima.test.js
+│           └── health.test.js
+├── docs/
+│   └── postman_collection.json
+├── frontend/
+└── package.json
+```
+
+O código executado e testado está em `backend/`. A pasta `X/` contém material
+antigo e não é utilizada pela aplicação atual.
+
+## Serviços externos
+
+- IBGE: municípios por nome e por estado
+- Open-Meteo Geocoding: coordenadas das cidades
+- Open-Meteo Forecast: previsão climática
