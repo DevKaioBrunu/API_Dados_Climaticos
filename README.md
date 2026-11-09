@@ -27,8 +27,10 @@ Com Docker instalado e em execução, na raiz do projeto:
 docker compose up --build
 ```
 
-A API fica disponível em `http://localhost:3000`. Para encerrar, pressione
-`Ctrl+C`; para remover o container, execute `docker compose down`. Consulte
+A interface fica disponível em `http://localhost:8080`, e a API pode ser
+acessada diretamente em `http://localhost:3000`. A interface encaminha as
+chamadas `/api/` para a API pelo Compose. Para encerrar, pressione `Ctrl+C`;
+para remover os containers, execute `docker compose down`. Consulte
 [`docs/execucao-docker.md`](docs/execucao-docker.md) para detalhes e limites
 da verificação.
 
