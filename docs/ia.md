@@ -33,7 +33,7 @@ Os diretórios `.spec/`, `.agents/skills/` e `prompts/` são convenções locais
 
 | Data | Ferramenta | Participante | Uso e decisão | Evidência/validação |
 |---|---|---|---|---|
-| 2026-11-09 | OpenAI Codex | Daniel, com assistência de Codex | Inventário do workspace, leitura do handoff e dos requisitos, seguida de organização documental autorizada. | Arquivos listados no diff desta etapa. Nenhum teste executado; documentação ainda requer revisão humana. |
+| 2026-11-09 | OpenAI Codex | Daniel, com assistência de Codex | Inventário e organização documental; após autorização, configuração Docker da tarefa 001, documentação e validação local do container. | `docker compose config`, build e `docker compose up --build --detach` concluídos; health respondeu HTTP 200 `healthy`; `docker compose down` encerrou o container. O comando interativo com PTY não iniciou por erro de acesso ao criar o terminal. O npm reportou 4 vulnerabilidades (1 moderada, 2 altas, 1 crítica). Sem testes automatizados ou fluxo Open-Meteo ponta a ponta. |
 | Anterior, data não registrada | Perplexity | Daniel e/ou equipe, conforme uso relatado | Tutoria, interpretação de requisitos, planejamento, diagnósticos e rascunhos. | Relato prévio em `x/CONTRIBUTORS.md`; prompts completos, decisões específicas e validações não foram preservados. |
 
 ## Próximas atualizações
