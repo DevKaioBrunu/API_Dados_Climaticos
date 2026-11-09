@@ -3,6 +3,12 @@
 API REST em Node.js e Express para consultar municípios brasileiros no IBGE e
 previsões climáticas na Open-Meteo.
 
+## Desenvolvimento com IA
+
+O fluxo de especificações, prompts, skills e registro de uso de IA está em
+[`docs/guia-uso-de-ia.md`](docs/guia-uso-de-ia.md). Os usos efetivos de IA são
+registrados em [`docs/ia.md`](docs/ia.md).
+
 ## Requisitos
 
 - Node.js 18 ou superior
@@ -18,6 +24,23 @@ npm install
 ```
 
 ## Execução
+
+### Com Docker Compose
+
+Com Docker instalado e em execução, na raiz do projeto:
+
+```bash
+docker compose up --build
+```
+
+A interface fica disponível em `http://localhost:8080`, e a API pode ser
+acessada diretamente em `http://localhost:3000`. A interface encaminha as
+chamadas `/api/` para a API pelo Compose. Para encerrar, pressione `Ctrl+C`;
+para remover os containers, execute `docker compose down`. Consulte
+[`docs/execucao-docker.md`](docs/execucao-docker.md) para detalhes e limites
+da verificação.
+
+### Localmente com Node.js
 
 ```bash
 # Produção

@@ -1,0 +1,17 @@
+node_modules/
+.git/
+.agents/
+.spec/
+prompts/
+docs/
+x/
+coverage/
+.nyc_output/
+.env
+.env.*
+!.env.example
+backend/src/tests/
+**/*.test.js
+**/*.spec.js
+*.log
+npm-debug.log*

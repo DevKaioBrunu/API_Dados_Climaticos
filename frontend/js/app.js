@@ -90,4 +90,4 @@ document.getElementById("quickCities").addEventListener("click", (event) => {
   runRequest("clima");
 });
 
-setStatus("neutral", "Pronto para testar", "Ajuste a URL e clique em uma rota.");
+setStatus("neutral", "Pronto para testar", "A API usa o mesmo endereço da página por padrão.");

@@ -1,7 +1,17 @@
 const ApiClient = (() => {
   function getBaseUrl() {
     const input = document.getElementById("baseUrl");
-    return (input?.value || "http://localhost:3000").replace(/\/$/, "");
+    const configuredUrl = input?.value?.trim();
+
+    if (configuredUrl) {
+      return configuredUrl.replace(/\/$/, "");
+    }
+
+    if (window.location.protocol === "file:") {
+      return "http://localhost:3000";
+    }
+
+    return window.location.origin;
   }
 
   async function request(path) {
