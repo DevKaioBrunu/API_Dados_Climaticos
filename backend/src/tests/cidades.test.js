@@ -31,6 +31,25 @@ describe("GET /api/v1/cidades/:sigla_uf", () => {
     expect(response.body).toHaveProperty("consultado_em");
   });
 
+  test("normaliza a UF e usa limite padrão de 10 cidades", async () => {
+    axios.get.mockResolvedValueOnce({
+      data: Array.from({ length: 12 }, (_, index) => ({
+        nome: `Cidade ${index + 1}`,
+      })),
+    });
+
+    const response = await request(app).get("/api/v1/cidades/ce");
+
+    expect(response.status).toBe(200);
+    expect(response.body.uf).toBe("CE");
+    expect(response.body.quantidade_retornada).toBe(10);
+    expect(response.body.cidades).toHaveLength(10);
+    expect(axios.get).toHaveBeenCalledWith(
+      "https://servicodados.ibge.gov.br/api/v1/localidades/estados/CE/municipios",
+      expect.any(Object)
+    );
+  });
+
   test("retorna 503 quando servico externo falha", async () => {
     axios.get.mockRejectedValueOnce({ response: { status: 500 } });
 
@@ -50,12 +69,34 @@ describe("GET /api/v1/cidades/:sigla_uf", () => {
     expect(response.body.codigo).toBe("UF_NAO_ENCONTRADA");
   });
 
+  test("retorna 404 quando o IBGE responde com lista vazia", async () => {
+    axios.get.mockResolvedValueOnce({ data: [] });
+
+    const response = await request(app).get("/api/v1/cidades/XX");
+
+    expect(response.status).toBe(404);
+    expect(response.body.codigo).toBe("UF_NAO_ENCONTRADA");
+  });
+
   test("retorna 400 para sigla invalida", async () => {
     const response = await request(app).get("/api/v1/cidades/ceara");
 
     expect(response.status).toBe(400);
     expect(response.body.codigo).toBe("SIGLA_UF_INVALIDA");
   });
+
+  test.each(["abc", "0", "101", "invalido"])(
+    "retorna 400 sem consultar o IBGE quando o limite é inválido (%s)",
+    async (limite) => {
+      const response = await request(app).get(
+        `/api/v1/cidades/CE?limite=${limite}`
+      );
+
+      expect(response.status).toBe(400);
+      expect(response.body.codigo).toBe("LIMITE_INVALIDO");
+      expect(axios.get).not.toHaveBeenCalled();
+    }
+  );
 
   test("retorna 404 em JSON para rota inexistente", async () => {
     const response = await request(app).get("/api/v1/rota-inexistente");
