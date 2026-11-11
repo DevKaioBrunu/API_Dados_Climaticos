@@ -82,4 +82,4 @@ Não é necessário registrar cada pergunta trivial. É importante registrar con
 
 ## Continuidade desta equipe
 
-Na continuação do projeto, Kaio pode começar revisando `.spec/tarefas/003-testes-clima.md`, que propõe trabalho na área climática. A tarefa permanece uma proposta até que ele confirme o escopo e a responsabilidade. Daniel e Kaio devem combinar branch, revisão por PR e validação antes de iniciar mudanças em arquivos compartilhados.
+Na continuação do projeto, Kaio pode revisar `.spec/tarefas/003-testes-clima.md`, que registra testes climáticos implementados e validados com mocks. A definição e a verificação de um mínimo de cobertura para B-TEC-06 permanecem na tarefa 004; a aceitação formal da integração interna com Axios simulado para B-TEC-05 ainda depende da equipe. Daniel e Kaio devem combinar branch, revisão por PR e validação antes de iniciar mudanças em arquivos compartilhados.
