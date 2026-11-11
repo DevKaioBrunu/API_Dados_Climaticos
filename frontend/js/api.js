@@ -1,3 +1,4 @@
+/* exported ApiClient */
 const ApiClient = (() => {
   function getBaseUrl() {
     const input = document.getElementById("baseUrl");

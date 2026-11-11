@@ -11,7 +11,7 @@ registrados em [`docs/ia.md`](docs/ia.md).
 
 ## Requisitos
 
-- Node.js 18 ou superior
+- Node.js 22.x, versão 22.13 ou superior, para desenvolvimento e verificações (mesma linha usada no CI)
 - npm 9 ou superior
 - Acesso à internet para consultar o IBGE e a Open-Meteo
 
@@ -20,7 +20,7 @@ registrados em [`docs/ia.md`](docs/ia.md).
 Na raiz do projeto:
 
 ```bash
-npm install
+npm ci
 ```
 
 ## Execução
@@ -52,17 +52,59 @@ npm run dev
 
 O servidor fica disponível em `http://localhost:3000`.
 
-## Testes
+## Lint, testes e cobertura
 
 ```bash
+npm run lint
 npm test
+npm run test:coverage -- --runInBand
 ```
 
-Para verificar as rotas contra um servidor em execução:
+O lint usa ESLint 10 com regras recomendadas para o JavaScript do backend,
+testes, frontend e configurações de ESLint/Jest. Os ambientes Node.js, Jest
+e navegador são configurados separadamente. O comando falha em erros ou avisos.
+
+O mínimo é **80% global de declarações (statements) da API**, aplicado pelo
+Jest em `npm run test:coverage`. `npm test` executa a suíte sem coletar cobertura.
+O CI usa o comando com cobertura para verificar o mínimo em cada execução.
+
+São contabilizados os arquivos `backend/src/**/*.js`, inclusive módulos sem
+teste direto. As exclusões são `backend/src/tests/**` (testes e o verificador
+manual `checkRoutes.js`) e `backend/src/app.js` (arquivo vazio, sem uso atual).
+Se `app.js` passar a conter implementação, sua exclusão deve ser removida.
+Frontend, configurações e material de `X/` não fazem parte da cobertura da API.
+Ramificações, funções e linhas são reportadas sem um mínimo separado.
+
+O valor de 80% é uma decisão desta entrega; o curso não determina percentual.
+A suíte completa medida em 10/11/2026 atingiu 90,85% de declarações. O piso
+estabelece uma proteção inicial para a base reaproveitada. Relatórios locais:
+`coverage/lcov-report/index.html`, `coverage/lcov.info` e
+`coverage/coverage-summary.json`; esses artefatos são ignorados pelo Git.
+
+Os testes unitários e de integração interna simulam a camada HTTP/provedores.
+O Supertest usa portas TCP locais temporárias. Para verificar as rotas com
+consultas reais, em uma execução separada contra a API já iniciada:
 
 ```bash
 npm run check-routes
 ```
+
+### Integração contínua
+
+O workflow [CI](.github/workflows/ci.yml) usa Ubuntu e Node.js 22 e está
+configurado para pushes em `main`/`DEV`, PRs destinados a essas branches
+e acionamento manual. Executa, nesta ordem:
+
+```bash
+npm ci
+npm run lint
+npm run test:coverage -- --ci --runInBand
+```
+
+Instalação, lint e testes foram validados localmente. A execução remota e seu
+link verde ainda estão pendentes: após publicar o workflow, abra a aba
+**Actions** do repositório, confira os três passos e registre o link da
+execução bem-sucedida na [tarefa 004](.spec/tarefas/004-lint-cobertura-ci.md).
 
 ## API
 

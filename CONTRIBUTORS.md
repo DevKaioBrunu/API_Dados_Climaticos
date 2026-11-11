@@ -131,6 +131,23 @@ de cenários de teste.
 Os apontamentos devem ser confirmados antes de serem registrados
 como defeitos corrigidos ou melhorias concluídas.
 
+### Lint, cobertura e configuração de CI — tarefa 004
+
+Em 10/11/2026, Kaio aprovou o prompt da tarefa 004 e autorizou sua
+implementação com assistência de OpenAI Codex. Foram acrescentados ESLint 10,
+um mínimo global de 80% de declarações no Jest, o workflow GitHub Actions e
+instruções de execução. A base existente recebeu apenas dois ajustes para
+lint: remoção de parâmetro não usado no health e anotação do global
+`ApiClient` no frontend.
+
+Instalação pelo lockfile e lint passaram. A suíte com provedores simulados
+passou com 6 suítes, 39 testes e 90,85% de declarações. Uma execução restrita
+aos testes unitários climáticos comprovou a reprovação abaixo do mínimo:
+4 testes passaram, mas a cobertura global de 14,02% resultou em código 1.
+O workflow está preparado; a execução remota e seu link verde permanecem
+pendentes. Não houve commit, push ou merge nesta etapa. Decisões, comandos
+e limitações estão na tarefa 004 e em `docs/ia.md`.
+
 ## Requisitos adicionais da entrega FullCycle
 
 A adequação ao Projeto B acrescenta à base acadêmica os requisitos
@@ -147,8 +164,8 @@ abaixo. Os itens são marcados somente após sua conclusão e verificação.
 
 - [ ] Testes unitários do domínio.
 - [ ] Pelo menos um teste de integração.
-- [ ] Cobertura mínima declarada e respeitada.
-- [ ] Lint configurado.
+- [x] Cobertura mínima declarada e respeitada (80% global de declarações; 90,85% medidos na tarefa 004).
+- [x] Lint configurado e executado (tarefa 004).
 - [ ] CI verde com instalação, lint e testes.
 
 Os testes já existentes serão reaproveitados e avaliados quanto
@@ -197,6 +214,7 @@ As evidências devem relacionar contribuição, autoria e resultado:
 | Kaio Bruno | Ajustes de caminhos e documentação | A preencher | Registrar verificações realizadas |
 | Daniel | Execução com Docker | Pendente | Pendente |
 | Daniel, com assistência de Codex | Testes unitários do serviço geográfico e testes da rota de cidades (tarefa 002) | Não criado | `npm.cmd test -- --runInBand`: 7 suítes e 46 testes passaram; integrações HTTP externas foram mockadas |
+| Kaio Bruno, com assistência de Codex | Lint, mínimo de cobertura e configuração de CI (tarefa 004) | Não criado nesta etapa | Instalação e lint passaram; 6 suítes/39 testes com mocks e 90,85% de declarações. Reprovação por cobertura insuficiente verificada. CI remoto pendente |
 
 Revisões, correções e novas entregas serão acrescentadas conforme
 forem realizadas. Planejamento não será registrado como implementação,

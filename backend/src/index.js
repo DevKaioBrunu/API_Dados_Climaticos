@@ -22,7 +22,7 @@ app.get('/api/v1/health', async (req, res) => {
       versao: '1.0.0',
       timestamp: new Date().toISOString()
     });
-  } catch (error) {
+  } catch {
     return res.status(200).json({
       status: 'degraded',
       versao: '1.0.0',
