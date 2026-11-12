@@ -223,15 +223,15 @@ abaixo. Os itens são marcados somente após sua conclusão e verificação.
 
 ### Execução e design
 
-- [ ] Execução com Docker Compose por um único comando.
-- [ ] Fluxo principal funcionando de ponta a ponta.
+- [x] Execução com Docker Compose por um único comando; validada em registros anteriores e confirmada por Daniel em navegador local.
+- [x] Fluxo principal funcionando de ponta a ponta; k6 consultou clima com provedores reais e Daniel informou teste da interface local.
 - [ ] Aplicação de princípios SOLID, demonstrada no código.
 - [ ] Um pattern aplicado e justificado.
 
 ### Testes e automação
 
-- [ ] Testes unitários do domínio.
-- [ ] Pelo menos um teste de integração.
+- [x] Testes unitários do domínio (`weather`, `ibge` e rotas); suíte executada na tarefa 006.
+- [x] Pelo menos um teste de integração interna (`clima.integration.test.js`, com provedores simulados).
 - [x] Cobertura mínima declarada e respeitada (80% global de declarações; 90,85% medidos na tarefa 004).
 - [x] Lint configurado e executado (tarefa 004).
 - [x] CI verde com instalação, lint e testes, conforme captura da execução CI #1 apresentada por Kaio.
@@ -244,9 +244,9 @@ apenas para atender ao projeto.
 
 - [ ] .env.example versionado.
 - [ ] Segredos fora do código e do histórico versionado.
-- [ ] Logs estruturados.
-- [ ] Pelo menos uma métrica.
-- [ ] Um SLO simples declarado.
+- [x] Logs estruturados em JSON com Pino, documentados em `docs/observabilidade.md`.
+- [x] Métrica Prometheus `api_http_requests_total` implementada e documentada.
+- [x] SLO simples documentado em `docs/observabilidade.md`; a declaração não comprova que a meta foi atingida.
 
 ### Documentação e desempenho
 
@@ -255,7 +255,7 @@ apenas para atender ao projeto.
 - [x] OpenAPI do endpoint principal (`GET /api/v1/clima/{nome_cidade}`).
 - [x] Um smoke test k6 executado com uma VU e dez iterações.
 - [x] p95 de 1,47 s medido e registrado em `docs/desempenho.md`, com ambiente, carga e limitações.
-- [x] `CONTRIBUTORS.md` atualizado com a contribuição desta tarefa; seu commit/PR ainda está pendente.
+- [x] `CONTRIBUTORS.md` atualizado com a contribuição da tarefa 006; commit de implementação identificado como `62c62e3`.
 - [x] Prompt, decisões e uso de IA da tarefa 006 registrados em `docs/ia.md`.
 
 A existência desta lista não significa que os requisitos
@@ -276,15 +276,15 @@ As evidências devem relacionar contribuição, autoria e resultado:
 
 | Participante | Contribuição | PR ou commit | Validação |
 |---|---|---|---|
-| Daniel | Integração da área geográfica | A preencher | Registrar verificações realizadas |
-| Daniel | Inclusão de HTML e CSS da interface | A preencher | Registrar verificações realizadas |
-| Kaio Bruno | Integração da área climática | A preencher | Registrar verificações realizadas |
-| Kaio Bruno | Ajustes de caminhos e documentação | A preencher | Registrar verificações realizadas |
-| Daniel | Execução com Docker | Pendente | Pendente |
-| Daniel, com assistência de Codex | Testes unitários do serviço geográfico e testes da rota de cidades (tarefa 002) | Não criado | `npm.cmd test -- --runInBand`: 7 suítes e 46 testes passaram; integrações HTTP externas foram mockadas |
+| Daniel | Integração da área geográfica e rotas de cidades | `53589ac`, `2de27d7` | Serviços IBGE/Open-Meteo e rota de cidades registrados no histórico; testes geográficos ampliados em `dc6b487`. |
+| Daniel | Inclusão de HTML e CSS da interface | `d640e37` | Commit identificado no histórico local do Git. |
+| Kaio Bruno | Integração da área climática | `e15e107` | Serviço e consulta climática registrados no histórico local do Git. |
+| Kaio Bruno | Ajustes de caminhos e documentação | `3fe86da` | Correção de referências ao código legado registrada no histórico local do Git. |
+| Daniel | Execução com Docker | `9e188c3`, `3c0145d` | Build e execução Compose descritos em `docs/execucao-docker.md`; Daniel também informou validação posterior da interface no navegador em `http://localhost:8080/`. |
+| Daniel, com assistência de Codex | Testes unitários do serviço geográfico e testes da rota de cidades (tarefa 002) | `dc6b487` | `npm.cmd test -- --runInBand`: 7 suítes e 46 testes passaram; integrações HTTP externas foram mockadas. |
 | Kaio Bruno, com assistência de Codex | Lint, mínimo de cobertura e configuração de CI (tarefa 004) | `c97ed29` | Instalação e lint passaram; 6 suítes/39 testes com mocks e 90,85% de declarações. Reprovação por cobertura insuficiente verificada. Kaio apresentou captura do CI #1 verde para esse commit. |
-| Daniel, com assistência de Codex | Observabilidade (tarefa 005): responsável escolhido pela equipe; solicitou comparação de opções simples e seguras e autorizou implementar a recomendação assistida por IA | Não criado | Lint passou; 7 suítes/42 testes com mocks passaram e cobertura global de statements foi 89,47%. YAML validado localmente. Compose/Prometheus em execução não validados porque Docker CLI não está disponível; sem chamadas reais a provedores. |
-| Daniel, com assistência de Codex | Documentação, ADR, OpenAPI, smoke test e medição de desempenho (tarefa 006); Daniel confirmou responsabilidade e autorizou o Codex a decidir a solução | Não criado (sem commit/PR nesta execução) | `npm run lint` passou; 7 suítes/42 testes com mocks e 89,47% de statements; YAML OpenAPI válido; imagem e serviço API construídos pelo Compose; k6 v2.4.0: 10 requisições reais, 10 HTTP 200, 20/20 checks e p95 de 1,47 s. A amostra usa IBGE/Open-Meteo e não representa desempenho contínuo. |
+| Daniel, com assistência de Codex | Observabilidade (tarefa 005): responsável escolhido pela equipe; solicitou comparação de opções simples e seguras e autorizou implementar a recomendação assistida por IA | `c825695` | Lint passou; 7 suítes/42 testes com mocks passaram e cobertura global de statements foi 89,47%. YAML validado localmente. Naquela validação, Compose/Prometheus em execução não foram verificados; sem chamadas reais a provedores. |
+| Daniel, com assistência de Codex | Documentação, ADR, OpenAPI, smoke test e medição de desempenho (tarefa 006); Daniel confirmou responsabilidade e autorizou o Codex a decidir a solução | `62c62e3` | `npm run lint` passou; 7 suítes/42 testes com mocks e 89,47% de statements; OpenAPI YAML válido; imagem e serviço API construídos pelo Compose; k6 v2.4.0: 10 requisições reais, 10 HTTP 200, 20/20 checks e p95 de 1,47 s. Daniel também informou que abriu a interface em `http://localhost:8080/`, iniciou a API com `npm run dev`/nodemon e usou Live Server; estes são testes relatados por Daniel. A amostra k6 usa IBGE/Open-Meteo e não representa desempenho contínuo. |
 
 Revisões, correções e novas entregas serão acrescentadas conforme
 forem realizadas. Planejamento não será registrado como implementação,

@@ -1,6 +1,6 @@
 # 006 — Documentação e desempenho
 
-**Estado:** implementação e validação técnica realizadas; faltam evidências de autoria da contribuição desta tarefa por commit/PR.
+**Estado:** implementação e validação técnica realizadas; commit de autoria identificado como `62c62e3`.
 **Responsável:** Daniel, confirmado por ele em 2026-11-12; decisões técnicas delegadas ao Codex para concluir as demandas da tarefa.
 **Requisitos:** B-DOC-01 a B-DOC-05, B-DES-01 e B-DES-02, B-AUT-04, B-IA-02.
 
@@ -25,8 +25,8 @@ Daniel confirmou ser o responsável e autorizou o Codex a tomar decisões para c
 - [x] OpenAPI descreve `GET /api/v1/clima/{nome_cidade}` conforme o código observado.
 - [x] Smoke test k6 executado e p95 medido com ambiente/carga descritos.
 - [x] `docs/desempenho.md` registra medição real e limitações.
-- [ ] Contribuições desta tarefa têm evidências de autoria por commit/PR; `CONTRIBUTORS.md` existe e está disponível na raiz, mas a contribuição atual ainda não foi registrada em commit/PR.
-- [ ] Contribuições individuais desta tarefa são demonstráveis por commits e PRs identificados; nenhum commit ou PR foi criado nesta execução.
+- [x] Contribuições desta tarefa têm evidência de autoria no commit `62c62e3`; `CONTRIBUTORS.md` existe na raiz.
+- [x] Contribuições individuais estão relacionadas a commits identificados no `CONTRIBUTORS.md`; nenhum PR foi informado para esta contribuição.
 - [x] Prompt, decisões e uso material de IA desta tarefa estão registrados em `docs/ia.md`.
 - [x] Validação documental e de desempenho executada e registrada.
 
@@ -36,3 +36,4 @@ Daniel confirmou ser o responsável e autorizou o Codex a tomar decisões para c
 |---|---|---|---|
 | 2026-11-09 | Codex, sob orientação de Daniel | Rascunho transversal preparado; responsável não confirmado e artefatos de ADR/OpenAPI/desempenho ainda não implementados. | Inspeção do README e dos requisitos; nenhuma medição de p95 foi feita. `x/CONTRIBUTORS.md` permanece local e não satisfaz a entrega na raiz. |
 | 2026-11-12 | Daniel, com assistência de OpenAI Codex | Daniel confirmou responsabilidade e autorizou o Codex a tomar decisões para concluir a tarefa. Escolhido o endpoint climático; registrado ADR da decisão de observabilidade já tomada na tarefa 005; criados OpenAPI, script k6 e relatório; README, `docs/ia.md` e `CONTRIBUTORS.md` atualizados. | `npm run lint` passou; `npm run test:coverage -- --ci --runInBand`: 7 suítes/42 testes passaram, 89,47% de statements; `docs/openapi.yaml` e Compose passaram na análise sintática YAML; `docker compose config --quiet` e `git diff --check` passaram. `docker compose up --build --detach api` iniciou a API. k6 v2.4.0, 1 VU/10 iterações, 10/10 respostas 200, 20/20 checks e p95 `http_req_duration` de 1,47 s com IBGE/Open-Meteo reais. A validação é uma amostra pequena, não SLO nem limite de aprovação. Commit/PR não criados; evidência de autoria dessa contribuição permanece pendente. |
+| 2026-11-12 | Daniel | Informou que enviou a implementação da tarefa ao GitHub e realizou verificações manuais adicionais. | Commit `62c62e3` identificado em `DEV`, alinhado com `origin/DEV`. Daniel relatou a interface em Docker no navegador em `http://localhost:8080/`, o início da API com `npm run dev`/nodemon e uso de Live Server; esses testes são relatos do participante, não foram repetidos pelo Codex nesta atualização. |
