@@ -39,7 +39,21 @@ O serviço da API instala as dependências de produção do lockfile e copia o c
 
 A porta da API está fixa em `3000` no código e o Compose publica `3000:3000`; o Nginx publica `8080:80`. A API não define healthcheck Docker: o endpoint existente consulta o IBGE e sempre responde HTTP 200, então não representa de forma confiável a saúde do processo/container. O build e a resposta HTTP também não equivalem à validação ponta a ponta dos provedores.
 
-## Estado da validação neste workspace
+## Fechamento em 12/11/2026
+
+`docker compose config --quiet` e `docker compose up --build --detach`
+passaram para a stack atual com API, frontend e Prometheus. Chrome headless
+exercitou clima de Fortaleza, cidades de CE e health com provedores reais;
+o coletor confirmou alvo `UP` e incremento do contador. Os serviços ficaram
+ativos para revisão, preservando volumes. Detalhes, falhas iniciais e limites:
+[verificação final](verificacao-final.md).
+
+O [`.env.example`](../.env.example) configura execução local com Node usando
+`--env-file`; o Compose atual define somente as variáveis de métricas no
+container. Copiar o exemplo para `.env` não repassa automaticamente todas as
+variáveis ao container. Nenhum arquivo `.env` é necessário para a subida padrão.
+
+## Histórico de validações neste workspace
 
 Em 09/11/2026, `docker compose config` validou os serviços `api` e `frontend`; `docker compose build --progress plain` construiu as duas imagens; `docker compose up --build --detach` iniciou os containers. A página em `http://localhost:8080/`, o cliente JavaScript e a folha de estilos responderam HTTP 200. Pelo proxy Nginx, `/api/v1/health` respondeu `healthy`, `/api/v1/cidades/CE?limite=1` retornou HTTP 200 e `/api/v1/clima/Fortaleza` retornou HTTP 200 com condição `Nublado`. Essas chamadas foram feitas sem mocks e incluíram IBGE e Open-Meteo. A API também permanece exposta diretamente em `http://localhost:3000`.
 

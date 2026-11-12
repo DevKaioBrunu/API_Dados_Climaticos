@@ -78,3 +78,13 @@ implementação e os testes confirmam a instrumentação e o cálculo consultáv
 eles não demonstram que a meta foi atingida ao longo de sete dias. O SLO também
 não equivale a uma garantia contínua, e depende da disponibilidade dos
 provedores externos usados pelo fluxo principal.
+
+## Validação no fechamento
+
+Em 12/11/2026, o Compose completo iniciou com Prometheus 3.13.5. O alvo
+`http://api:9100/metrics` ficou `UP`, a consulta `up{job="api"}` retornou 1 e
+o contador coletado avançou de 16 para 17 após uma requisição e o scrape
+seguinte. Um evento JSON de requisição teve os campos documentados conferidos.
+Essa observação comprova a coleta nessa execução; o cumprimento do SLO de
+sete dias continua sem medição. Ambiente, comandos e limites estão em
+[verificação final](verificacao-final.md).
