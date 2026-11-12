@@ -5,7 +5,7 @@
 - Docker instalado e em execução, com o comando `docker compose` disponível.
 - Acesso à internet para baixar a imagem base e instalar dependências durante o primeiro build. As consultas de clima e cidades também dependem dos serviços externos descritos no README.
 
-## Subir a API
+## Subir a aplicação
 
 Na raiz do repositório, execute:
 
@@ -23,7 +23,11 @@ docker compose down
 
 ## Verificar a resposta HTTP
 
-Com a interface aberta em `http://localhost:8080`, use o botão Health para chamar `/api/v1/health` pelo proxy do Nginx. Também é possível abrir `http://localhost:8080/api/v1/health` ou consultar diretamente `http://localhost:3000/api/v1/health`. A rota responde HTTP 200 e informa `healthy` ou `degraded` conforme a consulta ao IBGE. Portanto, essa resposta confirma que a rota respondeu, mas o estado `degraded` indica que o serviço externo não estava disponível.
+Com a interface aberta em `http://localhost:8080`, use **Verificar disponibilidade** para chamar `/api/v1/health` pelo proxy do Nginx. Também é possível abrir `http://localhost:8080/api/v1/health` ou consultar diretamente `http://localhost:3000/api/v1/health`. A rota responde HTTP 200 e informa `healthy` ou `degraded` conforme a consulta ao IBGE. Portanto, essa resposta confirma que a rota respondeu, mas o estado `degraded` indica que o serviço externo não estava disponível.
+
+Para consultar clima, selecione uma UF e depois um município. O navegador obtém a lista de municípios diretamente do IBGE, independentemente do proxy `/api/`; é necessário acesso à internet a partir do navegador. A consulta climática vai à API pelo proxy e depende dos provedores externos. Para municípios homônimos, a API atual recebe apenas o nome e a interface avisa caso a UF retornada seja diferente da selecionada. A consulta de cidades pela API aceita limite de 1 a 100 resultados; a lista de seleção obtida do IBGE não usa esse limite.
+
+O controle com sol ou lua no canto superior direito alterna entre os temas claro e escuro. A escolha fica salva no armazenamento local do navegador quando disponível; se o armazenamento estiver bloqueado, a escolha vale até recarregar a página.
 
 Uma resposta da rota health não comprova o fluxo completo de consulta climática. Esse fluxo também depende da geocodificação da Open-Meteo e do serviço de previsão da Open-Meteo.
 
@@ -42,3 +46,5 @@ Em 09/11/2026, `docker compose config` validou os serviços `api` e `frontend`; 
 Não foi possível automatizar interação visual com os botões nesta sessão porque o host de navegador não estava disponível. Os containers foram deixados em execução para conferência manual em `http://localhost:8080`; Daniel depois executou `docker compose down` e confirmou que os containers foram removidos e as imagens permaneceram locais.
 
 Durante `npm ci --omit=dev` no build da API, o npm reportou 4 vulnerabilidades nas dependências instaladas: 1 moderada, 2 altas e 1 crítica. Nenhuma dependência foi atualizada nesta tarefa. Testes automatizados não foram executados. As respostas reais de uma chamada demonstram o fluxo testado, não garantem disponibilidade contínua dos provedores.
+
+Essas verificações de 09/11/2026 antecedem a refatoração do frontend. Em 11/11/2026, `docker compose config --quiet` e `docker compose build frontend` passaram. Com serviços já existentes em execução, health, municípios de CE e clima de Fortaleza responderam pelo proxy com provedores reais; a interface foi exercitada no Chrome headless. A correção posterior de foco foi testada em container temporário da nova imagem. Depois, `docker compose up --detach --build --no-deps frontend` recriou o frontend em 8080: o JavaScript servido respondeu HTTP 200 e corresponde ao arquivo atual, incluindo a correção. Avaliação completa de acessibilidade e CLS segue pendente; detalhes em [tarefa 007](../.spec/tarefas/007-refatoracao-frontend.md).

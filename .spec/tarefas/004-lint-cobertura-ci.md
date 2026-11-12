@@ -1,6 +1,6 @@
 # 004 — Lint, cobertura e CI
 
-**Estado:** implementada e validada localmente; execução verde no GitHub pendente.
+**Estado:** implementada e validada localmente; Kaio apresentou captura de execução verde no GitHub para o commit `c97ed29`.
 
 **Responsável pela condução:** Kaio Bruno Soares dos Santos, que aprovou o prompt e autorizou a implementação nesta conversa; assistência de OpenAI Codex.
 
@@ -36,7 +36,7 @@ Antes desta implementação, `package.json` tinha scripts `start`, `dev`, `test`
 - [x] Comandos documentados e reproduzíveis para lint e testes.
 - [x] Cobertura mínima explicitamente declarada e respeitada, com exclusões justificadas.
 - [x] Workflow preparado com instalação, lint e testes; YAML lido e comandos validados localmente.
-- [ ] CI executa instalação, lint e testes e possui evidência de execução verde.
+- [x] CI executa instalação, lint e testes e possui evidência de execução verde.
 
 ## Validação local em 2026-11-10
 
@@ -55,7 +55,7 @@ Testes usaram mocks de Axios/cliente HTTP, sem consultas reais aos provedores. O
 
 ## Limitações e pendências
 
-- **CI remoto:** não executado; link verde pendente de publicação autorizada do workflow e execução no GitHub. Nenhum commit, push ou merge foi feito nesta etapa.
+- **CI remoto:** Kaio apresentou captura da execução verde CI #1, na branch `DEV`, para o commit `c97ed29`. A captura não mostra os detalhes dos passos nem o endereço individual da execução; [Actions do repositório](https://github.com/DevKaioBrunu/API_Dados_Climaticos/actions).
 - **Dependências:** o npm reportou 19 vulnerabilidades no conjunto instalado (3 baixas, 13 moderadas, 2 altas e 1 crítica). A correção dessas vulnerabilidades não foi feita; não foi usado `npm audit fix`. O alerta não distingue, nesta análise, quais vulnerabilidades já existiam antes da tarefa.
 - **Ambiente:** a primeira instalação das dependências de lint foi bloqueada no sandbox com `EAI_AGAIN` e passou com rede autorizada. Uma comparação do lockfile via subprocesso Git também recebeu `EPERM` no sandbox e passou fora dele; as versões existentes foram preservadas.
 - Docker, verificação visual do frontend, `check-routes` e consultas reais aos provedores não foram executados nesta tarefa.
@@ -68,3 +68,4 @@ Testes usaram mocks de Axios/cliente HTTP, sem consultas reais aos provedores. O
 | 2026-11-10 | Kaio Bruno Soares dos Santos, com assistência de OpenAI Codex | Iniciado o planejamento da tarefa transversal e preparado o prompt específico; responsável, ferramenta, limiar e escopo final ainda aguardam decisão da equipe. Nenhuma implementação da tarefa 004 foi feita. | `npm test -- --coverage --coverageReporters=text --runInBand`: 6 suítes e 39 testes passaram fora do sandbox; cobertura padrão atual de 90,85% de declarações e 80,43% de ramificações. A primeira tentativa no sandbox falhou com `listen EPERM` por causa da porta TCP temporária do Supertest. Testes com mocks, sem consultas reais aos provedores; CI não executado. |
 | 2026-11-10 | Kaio Bruno Soares dos Santos, com assistência de OpenAI Codex | Criado `prompts/implementacao-004-lint-cobertura-ci.md` para orientar a futura execução da tarefa. O prompt mantém responsável e escolhas técnicas como pendências e não concede autorização de implementação. | Prompt revisado contra `AGENTS.md`, `Agente.md` e os critérios da tarefa 004. Nenhum lint, limiar ou workflow foi implementado ou executado nesta etapa. |
 | 2026-11-10 | Kaio Bruno Soares dos Santos, com assistência de OpenAI Codex | Após aprovação do prompt e autorização explícita, implementados lint com ESLint 10, piso global de 80% de declarações, workflow GitHub Actions e documentação. ESLint 9 substituído na proposta pelo 10 devido ao fim de suporte; Jest/Supertest preservados. | Instalação pelo lockfile e lint passaram; 6 suítes/39 testes passaram com 90,85% de declarações. Verificação negativa saiu com código 1 ao medir 14,02%, mantendo o piso de 80%. CI remoto e seu link verde continuam pendentes; npm reportou 19 vulnerabilidades. |
+| 2026-11-11 | Kaio Bruno Soares dos Santos | Informou que o CI passou e forneceu captura da execução. | Captura mostra CI #1 verde para `c97ed29` em `DEV`; os passos individuais e o link direto da execução não estão visíveis. |

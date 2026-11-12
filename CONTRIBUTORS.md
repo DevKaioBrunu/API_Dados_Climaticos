@@ -94,6 +94,74 @@ A conclusão será registrada após implementação e validação.
 
 ## Contribuições de Kaio Bruno
 
+### Refatoração semântica do frontend
+
+Em 11/11/2026, Kaio solicitou o início da refatoração da interface e
+autorizou a Task 02 com assistência de OpenAI Codex. Foi reorganizado o
+HTML existente com regiões semânticas, orientações para os campos e
+anúncio de atualizações, preservando os identificadores usados pelo
+JavaScript da base. O lint passou e as ações foram verificadas em uma
+simulação de DOM e fetch. Naquele momento, verificações em navegador e as
+etapas de estilos e interações ainda estavam pendentes. A validação posterior
+do conjunto está registrada abaixo e na tarefa 007. O HTML e os estilos da
+base são contribuições anteriormente registradas para Daniel.
+
+Na continuidade, Kaio autorizou a Task 03, com assistência de Codex. A
+folha de estilos foi refatorada com a paleta proposta, layout responsivo,
+foco e suporte a movimento reduzido. Lint e verificações estáticas passaram;
+naquela etapa, a avaliação no navegador e a combobox permaneciam pendentes;
+as verificações posteriores constam no registro da Task 05.
+
+Após autorização de Kaio para a Task 04 e conclusão da estrutura da Task 03,
+Codex implementou a seleção de UF e município com consulta ao IBGE, resultados
+formatados e JSON, tratamento de erros e verificação de UF divergente. Lint e
+39 testes do backend passaram; a interação foi verificada inicialmente com
+DOM simulado. Na Task 05, o fluxo foi exercitado em Chrome headless e a
+consulta de clima respondeu através do proxy com provedores reais.
+
+Kaio também solicitou uniformizar o seletor de UF com a lista de municípios;
+com assistência de Codex, o controle passou a permitir pesquisa e navegação
+por teclado. O lint passou e os fluxos foram verificados com DOM simulado.
+
+Kaio solicitou ainda a alternância entre modo claro e escuro, implementada
+com assistência de Codex e preferência local no navegador. A lógica foi
+verificada em simulação; verificação visual específica dos dois temas e
+avaliação completa de acessibilidade estavam pendentes nessa etapa. Depois,
+os dois temas foram inspecionados no Chrome; a avaliação completa continua pendente.
+
+Em revisão posterior solicitada por Kaio, Codex colocou o controle de tema
+com ícones de sol e lua no topo direito e apresentou mínima e máxima em pares
+rotulados, removendo a barra literal. Lint e verificações estruturais passaram;
+o encaixe foi conferido posteriormente no Chrome na versão restaurada do cabeçalho.
+
+Kaio enviou uma captura apontando o desnível no cabeçalho; Codex ajustou o
+alinhamento do título com o cartão de status. A captura confirma o problema
+anterior, não a renderização após o ajuste.
+
+Na orientação seguinte de Kaio, Codex alinhou o cartão de status com o painel
+de resultados e moveu o controle de tema para a mesma linha, à direita. Lint
+e inspeção estrutural passaram; naquela etapa, a nova disposição não foi
+conferida visualmente no navegador.
+
+Kaio não aprovou essa última disposição; Codex a reverteu e restaurou o
+cabeçalho da versão imediatamente anterior. Os ícones do tema e os pares de
+temperatura permaneceram como estavam.
+O serviço frontend local em 8080 foi reconstruído com essa versão restaurada;
+HTML e CSS servidos coincidiram com os arquivos locais.
+
+Na Task 05, anterior às alterações de tema e cabeçalho, Kaio autorizou que Codex verificasse lint, testes, cobertura,
+build e fluxos no Chrome headless, com consultas reais aos provedores. Durante
+a validação, foi corrigido o retorno de foco após uma requisição. A suíte
+passou com 39 testes e 90,85% de declarações da API; avaliações completas de
+acessibilidade e CLS seguem pendentes. Detalhes estão na tarefa 007.
+
+Após a implementação do tema, Kaio solicitou recriar o serviço frontend em
+Compose. `docker compose up --detach --build --no-deps frontend` concluiu e
+`localhost:8080` passou a servir a versão daquele momento com o controle de tema. Essa
+recriação foi confirmada por resposta HTTP e comparação do HTML servido; a
+interação visual com o tema não foi repetida nesse passo. As validações e
+limitações completas estão em `.spec/tarefas/007-refatoracao-frontend.md`.
+
 ### Integração da área climática
 
 Kaio realizou a inclusão e consolidação dos componentes climáticos
@@ -144,8 +212,8 @@ Instalação pelo lockfile e lint passaram. A suíte com provedores simulados
 passou com 6 suítes, 39 testes e 90,85% de declarações. Uma execução restrita
 aos testes unitários climáticos comprovou a reprovação abaixo do mínimo:
 4 testes passaram, mas a cobertura global de 14,02% resultou em código 1.
-O workflow está preparado; a execução remota e seu link verde permanecem
-pendentes. Não houve commit, push ou merge nesta etapa. Decisões, comandos
+Posteriormente, Kaio apresentou captura da execução verde CI #1 no commit
+`c97ed29` da branch `DEV`. Não houve commit, push ou merge na etapa de implementação. Decisões, comandos
 e limitações estão na tarefa 004 e em `docs/ia.md`.
 
 ## Requisitos adicionais da entrega FullCycle
@@ -166,7 +234,7 @@ abaixo. Os itens são marcados somente após sua conclusão e verificação.
 - [ ] Pelo menos um teste de integração.
 - [x] Cobertura mínima declarada e respeitada (80% global de declarações; 90,85% medidos na tarefa 004).
 - [x] Lint configurado e executado (tarefa 004).
-- [ ] CI verde com instalação, lint e testes.
+- [x] CI verde com instalação, lint e testes, conforme captura da execução CI #1 apresentada por Kaio.
 
 Os testes já existentes serão reaproveitados e avaliados quanto
 à suficiência. Não é necessário substituir Jest por outra ferramenta
@@ -214,7 +282,7 @@ As evidências devem relacionar contribuição, autoria e resultado:
 | Kaio Bruno | Ajustes de caminhos e documentação | A preencher | Registrar verificações realizadas |
 | Daniel | Execução com Docker | Pendente | Pendente |
 | Daniel, com assistência de Codex | Testes unitários do serviço geográfico e testes da rota de cidades (tarefa 002) | Não criado | `npm.cmd test -- --runInBand`: 7 suítes e 46 testes passaram; integrações HTTP externas foram mockadas |
-| Kaio Bruno, com assistência de Codex | Lint, mínimo de cobertura e configuração de CI (tarefa 004) | Não criado nesta etapa | Instalação e lint passaram; 6 suítes/39 testes com mocks e 90,85% de declarações. Reprovação por cobertura insuficiente verificada. CI remoto pendente |
+| Kaio Bruno, com assistência de Codex | Lint, mínimo de cobertura e configuração de CI (tarefa 004) | `c97ed29` | Instalação e lint passaram; 6 suítes/39 testes com mocks e 90,85% de declarações. Reprovação por cobertura insuficiente verificada. Kaio apresentou captura do CI #1 verde para esse commit. |
 
 Revisões, correções e novas entregas serão acrescentadas conforme
 forem realizadas. Planejamento não será registrado como implementação,

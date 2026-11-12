@@ -27,6 +27,19 @@ Consolidar a API de domínio único baseada em trabalho acadêmico anterior e de
 - `AGENTS.md`, `docs/ia.md`, `docs/requisitos-projeto-b.md` e `.spec/` apareciam como não rastreados no estado Git inspecionado. Preserve esse estado até a equipe decidir o que integrar.
 - A tarefa Docker é planejamento; nenhum artefato Docker foi criado ou validado nesta etapa.
 
+## Atualização do frontend em 11/11/2026
+
+A pedido de Kaio, a tarefa 007 refatorou a interface reaproveitada: busca de
+UF e município, seleção em cascata com catálogo do IBGE acessado pelo
+navegador, resultados formatados e JSON técnico. A implementação e as
+verificações realizadas estão em [`tarefas/007-refatoracao-frontend.md`](tarefas/007-refatoracao-frontend.md).
+Também foi implementada a alternância entre tema claro e escuro, com
+persistência local quando disponível; a imagem do frontend em Compose foi
+recriada para servir essa versão.
+Em 11/11/2026 o fluxo principal foi exercitado em Chrome headless e a consulta
+climática real respondeu pelo proxy. Avaliação completa de acessibilidade,
+CLS e disponibilidade contínua dos provedores permanecem fora dessa evidência.
+
 ## Requisitos do curso e acompanhamento
 
 Consulte a fonte consolidada para o checklist completo. Em resumo: Compose com um comando, SOLID, um pattern justificado, testes unitários e de integração, mínimo de cobertura declarado, CI com install/lint/test, `.env.example`, proteção de segredos, logs estruturados, uma métrica, um SLO simples, README, ADR, OpenAPI, smoke test k6 com p95 medido, `docs/desempenho.md`, `CONTRIBUTORS.md` e prompts relevantes em `docs/ia.md`.
