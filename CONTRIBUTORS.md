@@ -283,6 +283,7 @@ As evidências devem relacionar contribuição, autoria e resultado:
 | Daniel | Execução com Docker | Pendente | Pendente |
 | Daniel, com assistência de Codex | Testes unitários do serviço geográfico e testes da rota de cidades (tarefa 002) | Não criado | `npm.cmd test -- --runInBand`: 7 suítes e 46 testes passaram; integrações HTTP externas foram mockadas |
 | Kaio Bruno, com assistência de Codex | Lint, mínimo de cobertura e configuração de CI (tarefa 004) | `c97ed29` | Instalação e lint passaram; 6 suítes/39 testes com mocks e 90,85% de declarações. Reprovação por cobertura insuficiente verificada. Kaio apresentou captura do CI #1 verde para esse commit. |
+| Daniel, com assistência de Codex | Observabilidade (tarefa 005): responsável escolhido pela equipe; solicitou comparação de opções simples e seguras e autorizou implementar a recomendação assistida por IA | Não criado | Lint passou; 7 suítes/42 testes com mocks passaram e cobertura global de statements foi 89,47%. YAML validado localmente. Compose/Prometheus em execução não validados porque Docker CLI não está disponível; sem chamadas reais a provedores. |
 
 Revisões, correções e novas entregas serão acrescentadas conforme
 forem realizadas. Planejamento não será registrado como implementação,

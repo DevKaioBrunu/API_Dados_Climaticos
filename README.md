@@ -224,3 +224,10 @@ O backend está em `backend/` e a interface estática em `frontend/`.
 - IBGE: municípios por nome e por estado
 - Open-Meteo Geocoding: coordenadas das cidades
 - Open-Meteo Forecast: previsão climática
+
+## Observabilidade
+
+O Compose também inicia o Prometheus para coletar o contador de requisições da
+API. O painel fica em `http://localhost:9090`, acessível somente pelo próprio
+computador. Logs JSON e a definição do SLO inicial estão documentados em
+[`docs/observabilidade.md`](docs/observabilidade.md).

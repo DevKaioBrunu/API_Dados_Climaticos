@@ -1,12 +1,5 @@
 const { getWithRetry } = require("./httpClient");
 
-function logExternalError(service, error, url) {
-  const status = error.response?.status;
-  const code = error.code;
-  const message = error.message;
-  console.log(`[${service}] external error`, { status, code, message, url });
-}
-
 async function buscarClima(latitude, longitude) {
   const url = "https://api.open-meteo.com/v1/forecast";
   try {
@@ -32,8 +25,7 @@ async function buscarClima(latitude, longitude) {
       },
     };
 
-  } catch (error) {
-    logExternalError("OPEN_METEO", error, url);
+  } catch {
     throw { tipo: "SERVICO_EXTERNO", servico: "OPEN_METEO" };
   }
 }

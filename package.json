@@ -12,9 +12,11 @@
     "check-routes": "node backend/src/tests/checkRoutes.js"
   },
   "dependencies": {
+    "@prometheus-io/client": "^0.16.1",
     "axios": "^1.16.0",
     "cors": "^2.8.6",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "pino": "^10.4.0"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",

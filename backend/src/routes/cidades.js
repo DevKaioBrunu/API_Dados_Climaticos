@@ -52,6 +52,7 @@ router.get("/:sigla_uf", async (req, res) => {
     });
   } catch (error) {
     if (error.tipo === "SERVICO_EXTERNO") {
+      res.locals.observability = { provider: error.servico };
       return res.status(503).json({
         erro: true,
         codigo: "SERVICO_EXTERNO_INDISPONIVEL",

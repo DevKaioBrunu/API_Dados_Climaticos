@@ -2,13 +2,13 @@
 
 ## Autorização e autoridade de decisão
 
-Daniel, responsável pelas escolhas da tarefa conforme declaração do
-solicitante, autoriza a IA que executar este prompt a decidir os caminhos
-técnicos e implementar a tarefa 005 dentro do escopo descrito abaixo. Priorize
-soluções simples, seguras, fáceis de operar e explicar pela equipe. Não pare
-para pedir aprovação de escolhas técnicas rotineiras: compare opções, escolha
-a alternativa proporcional ao projeto e registre justificativa e trade-offs.
-Não apresente uma decisão da IA como requisito do curso.
+Daniel é o responsável escolhido pela equipe e mantém a responsabilidade pelas
+decisões da tarefa. A pedido dele, a IA deve comparar opções e recomendar
+caminhos técnicos simples, seguros, fáceis de operar e explicar pela equipe.
+Daniel autoriza a implementação dentro do escopo descrito abaixo; implemente a
+alternativa recomendada, registre justificativa e trade-offs e não interrompa
+por escolhas técnicas rotineiras. Apresente as recomendações como decisões do
+projeto autorizadas por Daniel, nunca como requisitos do curso.
 
 Esta autorização não inclui commits, pushes, merges, publicação/deploy,
 alterações destrutivas, acesso a segredos ou consultas reais a provedores

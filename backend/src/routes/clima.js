@@ -17,6 +17,7 @@ router.get('/:nome_cidade', async (req, res) => {
 
   const nomeNormalizado = (nome_cidade || '').trim().toUpperCase();
   if (nomeNormalizado === 'CPTEC') {
+    res.locals.observability = { provider: 'CPTEC' };
     return res.status(503).json({
       erro: true,
       codigo: 'SERVICO_EXTERNO_INDISPONIVEL',
@@ -47,9 +48,8 @@ router.get('/:nome_cidade', async (req, res) => {
     });
 
    } catch (error) {
-    console.log("ERRO ROTA CLIMA:", error);
-
     if (error.tipo === "SERVICO_EXTERNO") {
+      res.locals.observability = { provider: error.servico };
       return res.status(503).json({
         erro: true,
         codigo: "SERVICO_EXTERNO_INDISPONIVEL",
