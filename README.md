@@ -76,6 +76,40 @@ npm run dev
 
 O servidor fica disponível em `http://localhost:3000`.
 
+### Configuração de ambiente
+
+Os valores públicos estão em [`.env.example`](.env.example). Para carregá-los
+explicitamente no Node.js suportado, após instalar as dependências:
+
+```bash
+cp .env.example .env
+node --env-file=.env backend/src/index.js
+```
+
+`npm start` e `npm run dev` usam defaults e variáveis exportadas pelo ambiente;
+não carregam `.env` automaticamente. Não é necessário dotenv. Use um modo de
+execução por vez para evitar disputa pela porta fixa 3000.
+
+| Variável | Default no Node local | Efeito |
+|---|---|---|
+| `LOG_LEVEL` | `info` | Nível dos logs Pino |
+| `HTTP_TIMEOUT_MS` | `5000` | Timeout por tentativa do cliente HTTP compartilhado |
+| `HTTP_RETRIES` | `2` | Retentativas do cliente compartilhado |
+| `HTTP_RETRY_DELAY_MS` | `300` | Base da espera crescente entre tentativas |
+| `METRICS_HOST` | `127.0.0.1` | Interface do servidor de métricas |
+| `METRICS_PORT` | `9100` | Porta do servidor de métricas |
+
+Use inteiros positivos nas opções HTTP: no código atual, zero resulta no
+default. A API não lê `PORT`. O health usa timeout próprio de 3000 ms e não
+passa pelo cliente de retentativas; o navegador tem timeout próprio de 15 s.
+As integrações atuais são públicas e não exigem chaves de API.
+
+No Compose, o YAML fixa `METRICS_HOST=0.0.0.0` e `METRICS_PORT=9100` na rede
+interna, sem publicar a porta no host. As outras variáveis do exemplo não
+são repassadas automaticamente ao container. Um `.env` do Compose serve à
+interpolação de valores referenciados no YAML; não é carregamento automático
+de todas as variáveis na aplicação. A subida padrão dispensa arquivo `.env`.
+
 ## Lint, testes e cobertura
 
 ```bash
@@ -100,7 +134,9 @@ Frontend, configurações e material de `X/` não fazem parte da cobertura da AP
 Ramificações, funções e linhas são reportadas sem um mínimo separado.
 
 O valor de 80% é uma decisão desta entrega; o curso não determina percentual.
-A suíte completa medida em 10/11/2026 atingiu 90,85% de declarações. O piso
+A suíte de 10/11/2026 atingiu 90,85% de declarações; a validação de fechamento
+em 12/11/2026 passou com 7 suítes/42 testes e 89,47%, incluindo observabilidade.
+São medições de versões/escopos diferentes. O piso
 estabelece uma proteção inicial para a base reaproveitada. Relatórios locais:
 `coverage/lcov-report/index.html`, `coverage/lcov.info` e
 `coverage/coverage-summary.json`; esses artefatos são ignorados pelo Git.
@@ -140,10 +176,11 @@ npm run lint
 npm run test:coverage -- --ci --runInBand
 ```
 
-Instalação, lint e testes foram validados localmente. Kaio informou uma execução
-verde do workflow CI para o commit `c97ed29` na branch `DEV`, apresentada em
-captura da página [Actions](https://github.com/DevKaioBrunu/API_Dados_Climaticos/actions).
-A captura identifica a execução, mas não mostra os detalhes individuais dos passos.
+O [CI #5](https://github.com/DevKaioBrunu/API_Dados_Climaticos/actions/runs/43300946340)
+foi confirmado pela API pública do GitHub em 12/11/2026: branch `DEV`, commit
+`d6ae88d`, conclusão `success`. As alterações locais deste fechamento precisam
+ser enviadas com autorização e ter seu próprio CI conferido. A execução
+anterior não comprova mudanças ainda não enviadas.
 
 ## API
 
@@ -246,3 +283,19 @@ O Compose também inicia o Prometheus para coletar o contador de requisições d
 API. O painel fica em `http://localhost:9090`, acessível somente pelo próprio
 computador. Logs JSON e a definição do SLO inicial estão documentados em
 [`docs/observabilidade.md`](docs/observabilidade.md).
+
+## Design, validação e apresentação
+
+- [SOLID e Adapter no código](docs/design.md): evidências, justificativa e limites.
+- [Verificação final](docs/verificacao-final.md): comandos, cobertura, fluxo real,
+  scrape Prometheus, varredura de segredos e pendências externas.
+- [ADR](docs/adr/0001-decisao.md), [OpenAPI](docs/openapi.yaml) e
+  [desempenho medido](docs/desempenho.md).
+- [Guia de estudo da dupla](docs/guia-estudo-apresentacao.md) e
+  [roteiro do vídeo de dez minutos](docs/roteiro-apresentacao.md).
+- [Checklist de entrega](docs/checklist-entrega.md) e
+  [autoria e contribuições](CONTRIBUTORS.md).
+
+O SLO de 95%/sete dias é uma meta declarada; a coleta foi confirmada no
+fechamento, sem comprovação de cumprimento da janela. O p95 de 1,47 s pertence
+ao smoke test registrado de dez requisições, não a uma garantia contínua.

@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const baseUrl = 'http://localhost:3000';
-const postmanFile = path.join(__dirname, '..', 'docs', 'postman_collection.json');
+const postmanFile = path.join(__dirname, '..', '..', '..', 'docs', 'postman_collection.json');
 const testsFolder = path.join(__dirname);
 
 function printResult(ok, message) {

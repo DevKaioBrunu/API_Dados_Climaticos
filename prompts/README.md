@@ -17,3 +17,4 @@ Modelos curtos para manter consistência com `AGENTS.md`, `.spec/` e `.agents/sk
 - `implementacao-frontend-task-04.md`: interação, cascata de localização e apresentação dos resultados.
 - `validacao-frontend-task-05.md`: comandos e limites para a validação do frontend.
 - `implementacao-tema-frontend.md`: alternância e persistência de tema claro/escuro.
+- `fechamento-projeto-b-apresentacao.md`: diagnóstico e plano para encerrar as pendências técnicas, validar as evidências e preparar guia de estudo, roteiro de vídeo e checklist de entrega para Kaio e Daniel; implementação depende de autorização de Kaio.

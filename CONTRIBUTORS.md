@@ -89,8 +89,9 @@ Daniel assumiu a preparação da execução com Docker, incluindo:
 - Documentação da execução.
 - Verificação do funcionamento da API no container.
 
-Status dessa frente: em preparação.
-A conclusão será registrada após implementação e validação.
+Status dessa frente: implementada, com evidências históricas da tarefa 001
+e revalidação na tarefa 008. A configuração atual inclui também o coletor
+adicionado por Daniel na tarefa 005; o fechamento de Kaio confirmou a coleta.
 
 ## Contribuições de Kaio Bruno
 
@@ -216,6 +217,33 @@ Posteriormente, Kaio apresentou captura da execução verde CI #1 no commit
 `c97ed29` da branch `DEV`. Não houve commit, push ou merge na etapa de implementação. Decisões, comandos
 e limitações estão na tarefa 004 e em `docs/ia.md`.
 
+### Preparação do fechamento e da apresentação
+
+Em 12/11/2026, Kaio solicitou um prompt para orientar o fechamento técnico,
+a consolidação documental e o estudo e gravação com Daniel. Com assistência
+de OpenAI Codex, foi preparado
+`prompts/fechamento-projeto-b-apresentacao.md`, seguindo as instruções de
+`Agente.md`, localizado em `X/Agente.md`, e o fluxo do repositório.
+O prompt foi indexado e seu uso registrado em `docs/ia.md`.
+
+Na criação do prompt, a contribuição era somente preparação documental.
+Implementação, novas validações, materiais finais, ensaio e vídeo ainda
+não tinham ocorrido naquele momento.
+
+Após essa preparação, Kaio autorizou executar o fechamento. Com assistência
+de Codex, foram criados `.env.example`, análise de design, verificação final,
+guia de estudo, roteiro e checklist; corrigido o caminho da coleção Postman
+no verificador manual e atualizados os registros. O código dos provedores,
+frontend, Compose e contratos permaneceu inalterado. SOLID e Adapter foram
+documentados a partir dos componentes já existentes, preservando a autoria.
+
+No fechamento, lint e 42 testes passaram com 89,47% de declarações; o fluxo
+real passou no Chrome e no verificador de rotas, e a coleta Prometheus foi
+confirmada. Gitleaks examinou o histórico disponível sem achados; alcance e
+resultado do conteúdo atual estão na tarefa 008 e em `docs/verificacao-final.md`.
+Os arquivos do fechamento ainda não têm commit próprio. Ensaio, gravação e
+entrega oficial permanecem pendentes.
+
 ## Requisitos adicionais da entrega FullCycle
 
 A adequação ao Projeto B acrescenta à base acadêmica os requisitos
@@ -225,27 +253,26 @@ abaixo. Os itens são marcados somente após sua conclusão e verificação.
 
 - [x] Execução com Docker Compose por um único comando; validada em registros anteriores e confirmada por Daniel em navegador local.
 - [x] Fluxo principal funcionando de ponta a ponta; k6 consultou clima com provedores reais e Daniel informou teste da interface local.
-- [ ] Aplicação de princípios SOLID, demonstrada no código.
-- [ ] Um pattern aplicado e justificado.
+- [x] Aplicação de SOLID demonstrada nos pontos existentes, com limites explícitos em `docs/design.md`; não se afirma aplicação integral dos cinco princípios.
+- [x] Adapter funcional nas integrações identificado e justificado em `docs/design.md`.
 
 ### Testes e automação
 
 - [x] Testes unitários do domínio (`weather`, `ibge` e rotas); suíte executada na tarefa 006.
 - [x] Pelo menos um teste de integração interna (`clima.integration.test.js`, com provedores simulados).
-- [x] Cobertura mínima declarada e respeitada (80% global de declarações; 90,85% medidos na tarefa 004).
+- [x] Cobertura mínima declarada e respeitada (80% global de declarações; 89,47% e 42 testes no fechamento; 90,85% era a medição da tarefa 004).
 - [x] Lint configurado e executado (tarefa 004).
-- [x] CI verde com instalação, lint e testes, conforme captura da execução CI #1 apresentada por Kaio.
+- [x] CI verde com instalação, lint e testes: CI #5 confirmado para `d6ae88d`; CI das alterações locais do fechamento depende de envio autorizado.
 
-Os testes já existentes serão reaproveitados e avaliados quanto
-à suficiência. Não é necessário substituir Jest por outra ferramenta
-apenas para atender ao projeto.
+Os testes da base foram reaproveitados e ampliados nas tarefas registradas.
+Jest e Supertest foram preservados; os resultados atuais estão na tarefa 008.
 
 ### Configuração e operação
 
-- [ ] .env.example versionado.
-- [ ] Segredos fora do código e do histórico versionado.
+- [ ] .env.example incluído no commit da entrega; arquivo preparado e carregamento conferido no workspace, aguardando integração autorizada.
+- [x] Verificação de segredos realizada no alcance documentado, sem achados no histórico disponível; conteúdo atual e limitações registrados na tarefa 008. Não representa garantia universal.
 - [x] Logs estruturados em JSON com Pino, documentados em `docs/observabilidade.md`.
-- [x] Métrica Prometheus `api_http_requests_total` implementada e documentada.
+- [x] Métrica Prometheus `api_http_requests_total` implementada, documentada e coletada em Compose, com alvo UP e incremento na tarefa 008.
 - [x] SLO simples documentado em `docs/observabilidade.md`; a declaração não comprova que a meta foi atingida.
 
 ### Documentação e desempenho

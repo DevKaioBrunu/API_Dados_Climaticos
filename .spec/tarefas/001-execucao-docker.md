@@ -1,6 +1,6 @@
 # 001 — Execução com Docker Compose
 
-**Estado:** configuração Docker implementada; build e chamadas HTTP locais validados; teste manual dos botões no navegador continua pendente.
+**Estado:** configuração Docker implementada; build, HTTP e fluxo interativo real revalidados no fechamento de 2026-11-12, tarefa 008. A confirmação pessoal de Daniel é registrada separadamente do teste automatizado.
 **Responsável informado:** Daniel.  
 **Requisito:** B-TEC-01.  
 **Dependências:** comportamento de inicialização e arquivos necessários ao runtime inspecionados; foi mantida a porta fixa `3000` existente.
@@ -36,7 +36,7 @@ Arquivos criados/alterados nesta etapa: `Dockerfile`, `docker-compose.yml`, `.do
 - [x] O cliente JavaScript usa a origem atual por padrão e mantém fallback local para `file://`; o código foi inspecionado e o endpoint via proxy respondeu.
 - [x] Imagens excluem referências e testes; a API instala somente dependências de produção.
 - [x] Documentação registra pré-requisitos, comandos, portas e limites da validação.
-- [ ] Daniel clica nos botões Health, Cidades e Clima no navegador servido em `http://localhost:8080` e confirma a interface interativa. O host de navegador desta sessão não permitiu automatizar esse passo.
+- [x] Interface interativa verificada em navegador: Daniel relatou uso local na tarefa 006; Chrome headless exercitou clima, cidades e health com provedores reais na tarefa 008. O relato de Daniel e a execução automatizada são evidências distintas.
 
 ## Validação anterior da API
 
@@ -52,6 +52,7 @@ Em 09/11/2026: `docker compose config` passou para os serviços `api` e `fronten
 |---|---|---|---|
 | 2026-11-09 | Codex, sob orientação e autorização de Daniel | Implementada a configuração Compose da API; depois, o escopo foi ampliado para servir o frontend em Nginx e encaminhar `/api/` à API. Commit de implementação: `3c0145d`. | `docker compose config` e builds passaram; HTML/CSS/JS, health, cidades e clima responderam por HTTP; clima usou IBGE e Open-Meteo reais. A execução automatizada de cliques no navegador não foi possível. |
 | 2026-11-09 | Daniel | Executou `docker compose down` após a conferência e consultou containers/imagens locais. | Containers e rede foram removidos; as imagens permaneceram instaladas. |
+| 2026-11-12 | Kaio, com assistência de OpenAI Codex | Fechamento autorizado: stack atual reconstruída/iniciada e interface exercitada no Chrome com provedores reais, sem alterar Compose. | Configuração/build passaram; clima Fortaleza/CE, cidades e health válidos; Prometheus UP e incremento coletado. Ver tarefa 008 e docs/verificacao-final.md. |
 
 ## Riscos e decisões pendentes
 
