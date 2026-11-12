@@ -250,13 +250,13 @@ apenas para atender ao projeto.
 
 ### Documentação e desempenho
 
-- [ ] README com nível B, instruções de execução e testes.
-- [ ] Um ADR registrando uma decisão técnica.
-- [ ] OpenAPI do endpoint principal.
-- [ ] Um smoke test com k6.
-- [ ] p95 medido e registrado em docs/desempenho.md.
-- [ ] CONTRIBUTORS.md atualizado com contribuições reais.
-- [ ] Prompts relevantes e uso de IA registrados em docs/ia.md.
+- [x] README com nível B, instruções de execução e testes; inclui comando do smoke test k6.
+- [x] Um ADR registrando a decisão de observabilidade tomada na tarefa 005.
+- [x] OpenAPI do endpoint principal (`GET /api/v1/clima/{nome_cidade}`).
+- [x] Um smoke test k6 executado com uma VU e dez iterações.
+- [x] p95 de 1,47 s medido e registrado em `docs/desempenho.md`, com ambiente, carga e limitações.
+- [x] `CONTRIBUTORS.md` atualizado com a contribuição desta tarefa; seu commit/PR ainda está pendente.
+- [x] Prompt, decisões e uso de IA da tarefa 006 registrados em `docs/ia.md`.
 
 A existência desta lista não significa que os requisitos
 já foram implementados. O estado final deve corresponder
@@ -284,6 +284,7 @@ As evidências devem relacionar contribuição, autoria e resultado:
 | Daniel, com assistência de Codex | Testes unitários do serviço geográfico e testes da rota de cidades (tarefa 002) | Não criado | `npm.cmd test -- --runInBand`: 7 suítes e 46 testes passaram; integrações HTTP externas foram mockadas |
 | Kaio Bruno, com assistência de Codex | Lint, mínimo de cobertura e configuração de CI (tarefa 004) | `c97ed29` | Instalação e lint passaram; 6 suítes/39 testes com mocks e 90,85% de declarações. Reprovação por cobertura insuficiente verificada. Kaio apresentou captura do CI #1 verde para esse commit. |
 | Daniel, com assistência de Codex | Observabilidade (tarefa 005): responsável escolhido pela equipe; solicitou comparação de opções simples e seguras e autorizou implementar a recomendação assistida por IA | Não criado | Lint passou; 7 suítes/42 testes com mocks passaram e cobertura global de statements foi 89,47%. YAML validado localmente. Compose/Prometheus em execução não validados porque Docker CLI não está disponível; sem chamadas reais a provedores. |
+| Daniel, com assistência de Codex | Documentação, ADR, OpenAPI, smoke test e medição de desempenho (tarefa 006); Daniel confirmou responsabilidade e autorizou o Codex a decidir a solução | Não criado (sem commit/PR nesta execução) | `npm run lint` passou; 7 suítes/42 testes com mocks e 89,47% de statements; YAML OpenAPI válido; imagem e serviço API construídos pelo Compose; k6 v2.4.0: 10 requisições reais, 10 HTTP 200, 20/20 checks e p95 de 1,47 s. A amostra usa IBGE/Open-Meteo e não representa desempenho contínuo. |
 
 Revisões, correções e novas entregas serão acrescentadas conforme
 forem realizadas. Planejamento não será registrado como implementação,

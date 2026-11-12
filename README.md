@@ -113,6 +113,21 @@ consultas reais, em uma execução separada contra a API já iniciada:
 npm run check-routes
 ```
 
+### Smoke test de desempenho
+
+Com a API acessível em `http://localhost:3000` e o k6 instalado, execute:
+
+```bash
+k6 run scripts/k6-smoke.js
+```
+
+O script envia dez requisições sequenciais para `GET /api/v1/clima/Fortaleza`,
+com uma única VU e uma pausa de um segundo entre as requisições. Ele verifica
+resposta HTTP 200 e os campos básicos do contrato. O resumo do k6 apresenta o
+p95 de `http_req_duration`; essa medição inclui a latência dos provedores
+externos usados pela rota. O script não define um limite de aprovação.
+Configure outra origem com `BASE_URL`, se necessário.
+
 ### Integração contínua
 
 O workflow [CI](.github/workflows/ci.yml) usa Ubuntu e Node.js 22 e está
