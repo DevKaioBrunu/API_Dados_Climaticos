@@ -4,6 +4,8 @@ Modelos curtos para manter consistência com `AGENTS.md`, `.spec/` e `.agents/sk
 
 - `planejamento.md`: inventariar e propor sem editar.
 - `planejamento-004-lint-cobertura-ci.md`: planejar a tarefa transversal 004 e explicitar as decisões pendentes antes da implementação.
+- `planejamento-005-observabilidade.md`: comparar opções de logs, métrica e SLO para a tarefa transversal 005, preservando as decisões para o responsável.
+- `implementacao-005-observabilidade.md`: implementar a tarefa 005 com decisões técnicas delegadas à IA, priorizando simplicidade, privacidade e evidências verificáveis.
 - `implementacao.md`: executar somente o escopo autorizado.
 - `implementacao-testes-geografia.md`: executar a tarefa 002 conforme o escopo acordado para Daniel, distinguindo testes mockados de verificações reais do provedor.
 - `revisao.md`: avaliar diff e evidências sem declarar aprovações fictícias.
