@@ -10,7 +10,7 @@ Este diretório mantém a visão de escopo e os rascunhos de trabalho do Projeto
 - Use em cada tarefa as seções `Checklist de aceite` e `Histórico de andamento`, conforme o padrão abaixo.
 - Antes de implementar, inspecione o código ativo e leia as instruções aplicáveis. Respeite a autorização e os limites de frente definidos pela equipe.
 - Registre hipóteses como hipóteses. Não derive requisitos numéricos que a fonte não define.
-- Atualize `docs/ia.md` e `x/CONTRIBUTORS.md` quando houver uso relevante de IA ou contribuição efetivamente realizada.
+- Atualize `docs/ia.md` e `CONTRIBUTORS.md` na raiz quando houver uso relevante de IA ou contribuição efetivamente realizada. A cópia histórica em `x/` não substitui o arquivo de entrega.
 
 Os documentos aqui são especificações e convenções da equipe; não são prova de funcionamento nem garantia de carregamento automático por uma IDE.
 

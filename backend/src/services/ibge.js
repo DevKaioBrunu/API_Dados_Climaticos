@@ -1,12 +1,5 @@
 const { getWithRetry } = require("./httpClient");
 
-function logExternalError(service, error, url) {
-  const status = error.response?.status;
-  const code = error.code;
-  const message = error.message;
-  console.log(`[${service}] external error`, { status, code, message, url });
-}
-
 async function buscarCoordenadasCidade(nomeCidade, siglaUF) {
   const url = "https://geocoding-api.open-meteo.com/v1/search";
   try {
@@ -31,8 +24,7 @@ async function buscarCoordenadasCidade(nomeCidade, siglaUF) {
       lat: resultado.latitude,
       lon: resultado.longitude,
     };
-  } catch (error) {
-    logExternalError("OPEN_METEO_GEOCODING", error, url);
+  } catch {
     throw { tipo: "SERVICO_EXTERNO", servico: "OPEN_METEO_GEOCODING" };
   }
 }
@@ -86,7 +78,6 @@ async function buscarCidade(nomeCidade) {
     if (error.response && error.response.status === 404) {
       return null;
     }
-    logExternalError("IBGE", error, url);
     throw { tipo: "SERVICO_EXTERNO", servico: "IBGE" };
   }
 }
@@ -112,7 +103,6 @@ async function buscarCidadesPorUF(siglaUF) {
     if (error.response && error.response.status === 404) {
       return null;
     }
-    logExternalError("IBGE", error, url);
     throw { tipo: "SERVICO_EXTERNO", servico: "IBGE" };
   }
 }

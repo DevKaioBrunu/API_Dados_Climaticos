@@ -3,82 +3,120 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>API Dados Climaticos - Teste de Rotas</title>
+  <title>Dados Climáticos — cidades brasileiras</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* Medidas provisórias até a etapa de estilos. */
+    button, input { min-height: 44px; }
+    button { min-width: 44px; }
+  </style>
 </head>
 <body>
-  <main class="shell">
-    <section class="hero">
-      <div>
-        <p class="eyebrow">Teste de rotas</p>
-        <h1>API Dados Climaticos</h1>
-        <p class="subtitle">Interface simples em HTML, CSS e JavaScript puro para testar health, clima e cidades.</p>
+  <div class="shell">
+    <header class="hero">
+      <div class="hero-intro">
+        <h1>
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="11" r="5"></circle>
+            <path d="M12 2v2M3 11h2M5.6 4.6 7 6M18.4 4.6 17 6M7.5 24a5 5 0 0 1 .8-9.9 7 7 0 0 1 13.3 1.8A4.1 4.1 0 1 1 23 24H7.5Z"></path>
+          </svg>
+          Dados climáticos
+        </h1>
+        <p class="subtitle">Consulte a previsão do clima e municípios brasileiros.</p>
       </div>
-      <div class="status-card">
-        <span class="status-dot" id="connectionDot"></span>
+      <button type="button" class="theme-toggle" id="themeToggle" aria-pressed="false" aria-label="Modo escuro" title="Alternar tema">
+        <svg class="theme-icon-sun" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path>
+        </svg>
+        <svg class="theme-icon-moon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <path d="M20.2 15.2A8.5 8.5 0 0 1 8.8 3.8 8.5 8.5 0 1 0 20.2 15.2Z"></path>
+        </svg>
+      </button>
+      <div class="status-card" role="status" aria-live="polite" aria-atomic="true">
+        <span class="status-dot" id="connectionDot" aria-hidden="true"></span>
         <div>
-          <strong id="connectionLabel">Pronto para testar</strong>
+          <strong id="connectionLabel">Pronto para consultar</strong>
           <p id="connectionHint">Por padrão, a interface usa a API no mesmo endereço desta página.</p>
         </div>
       </div>
-    </section>
+    </header>
 
-    <section class="panel controls">
-      <div class="control-group">
-        <label for="baseUrl">Base URL da API</label>
-        <input id="baseUrl" type="url" value="" placeholder="Vazio usa o mesmo endereço da página">
-      </div>
+    <main>
+      <section class="panel controls" aria-labelledby="consultaTitle">
+        <h2 id="consultaTitle">Faça sua consulta</h2>
+        <form aria-labelledby="consultaTitle">
+          <div class="control-group">
+            <label for="baseUrl">Endereço da API</label>
+            <input id="baseUrl" type="url" value="" placeholder="Mesmo endereço da página" aria-describedby="baseUrlHint">
+            <small id="baseUrlHint">Deixe vazio para usar o endereço padrão.</small>
+          </div>
 
-      <div class="grid">
-        <div class="control-group">
-          <label for="cityInput">Cidade</label>
-          <input id="cityInput" type="text" value="Fortaleza" placeholder="Fortaleza">
+          <div class="grid">
+            <div class="control-group">
+              <label for="ufInput">UF</label>
+              <div class="combobox">
+                <input id="ufInput" type="text" role="combobox" aria-autocomplete="list" aria-controls="ufOptions" aria-expanded="false" aria-describedby="ufHint" autocomplete="off" placeholder="Digite ou escolha uma UF">
+                <ul id="ufOptions" class="combobox-list" role="listbox" aria-label="Unidades federativas" hidden></ul>
+              </div>
+              <small id="ufHint" role="status" aria-live="polite">Escolha a UF para buscar municípios e clima.</small>
+            </div>
+            <div class="control-group">
+              <label for="cityInput">Cidade para consultar o clima</label>
+              <div class="combobox">
+                <input id="cityInput" type="text" role="combobox" aria-autocomplete="list" aria-controls="cityOptions" aria-expanded="false" aria-describedby="cityHint" autocomplete="off" placeholder="Selecione uma UF primeiro" disabled>
+                <ul id="cityOptions" class="combobox-list" role="listbox" aria-label="Municípios" hidden></ul>
+              </div>
+              <small id="cityHint" role="status" aria-live="polite">Selecione uma UF primeiro.</small>
+              <button type="button" id="retryCities" class="chip" hidden>Tentar carregar municípios novamente</button>
+            </div>
+            <div class="control-group">
+              <label for="limitInput">Limite de municípios</label>
+              <input id="limitInput" type="number" value="10" min="1" max="100" step="1" aria-describedby="limitHint">
+              <small id="limitHint">Escolha um número inteiro de 1 a 100.</small>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button type="button" class="primary" data-action="clima" disabled>Consultar clima</button>
+            <button type="button" class="primary" data-action="cidades">Buscar municípios</button>
+            <button type="button" class="primary" data-action="health">Verificar disponibilidade</button>
+          </div>
+
+          <div aria-labelledby="quickCitiesTitle">
+            <p id="quickCitiesTitle">Cidades para começar</p>
+            <div class="chips" id="quickCities">
+              <button type="button" class="chip" data-city="Fortaleza" data-uf="CE">Fortaleza</button>
+              <button type="button" class="chip" data-city="São Paulo" data-uf="SP">São Paulo</button>
+              <button type="button" class="chip" data-city="Rio de Janeiro" data-uf="RJ">Rio de Janeiro</button>
+              <button type="button" class="chip" data-city="Brasília" data-uf="DF">Brasília</button>
+              <button type="button" class="chip" data-city="Salvador" data-uf="BA">Salvador</button>
+              <button type="button" class="chip" data-city="Belo Horizonte" data-uf="MG">Belo Horizonte</button>
+              <button type="button" class="chip" data-city="Curitiba" data-uf="PR">Curitiba</button>
+              <button type="button" class="chip" data-city="Manaus" data-uf="AM">Manaus</button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel output" aria-labelledby="requestTitle" aria-busy="false">
+        <div class="output-header">
+          <h2 id="requestTitle">Nenhuma consulta realizada</h2>
+          <span class="badge" id="responseBadge">Aguardando</span>
         </div>
 
-        <div class="control-group">
-          <label for="ufInput">UF</label>
-          <input id="ufInput" type="text" value="CE" maxlength="2" placeholder="CE">
+        <div id="viewControls" class="view-controls" aria-label="Modo de visualização">
+          <button type="button" class="chip" id="visualMode" aria-pressed="true">Visão formatada</button>
+          <button type="button" class="chip" id="jsonMode" aria-pressed="false">JSON técnico</button>
         </div>
-
-        <div class="control-group">
-          <label for="limitInput">Limite de cidades</label>
-          <input id="limitInput" type="number" value="10" min="1" max="100">
-        </div>
-      </div>
-
-      <div class="actions">
-        <button class="primary" data-action="health">Health</button>
-        <button class="primary" data-action="clima">Clima da cidade</button>
-        <button class="primary" data-action="cidades">Cidades por UF</button>
-      </div>
-
-      <div class="chips" id="quickCities">
-        <button class="chip" data-city="Fortaleza" data-uf="CE">Fortaleza</button>
-        <button class="chip" data-city="São Paulo" data-uf="SP">São Paulo</button>
-        <button class="chip" data-city="Rio de Janeiro" data-uf="RJ">Rio de Janeiro</button>
-        <button class="chip" data-city="Brasília" data-uf="DF">Brasília</button>
-        <button class="chip" data-city="Salvador" data-uf="BA">Salvador</button>
-        <button class="chip" data-city="Belo Horizonte" data-uf="MG">Belo Horizonte</button>
-        <button class="chip" data-city="Curitiba" data-uf="PR">Curitiba</button>
-        <button class="chip" data-city="Manaus" data-uf="AM">Manaus</button>
-      </div>
-    </section>
-
-    <section class="panel output">
-      <div class="output-header">
-        <div>
-          <p class="eyebrow">Resposta da API</p>
-          <h2 id="requestTitle">Nenhuma requisição executada</h2>
-        </div>
-        <span class="badge" id="responseBadge">Aguardando</span>
-      </div>
-
-      <pre id="responseOutput" class="response-view">Clique em uma rota para ver a resposta aqui.</pre>
-    </section>
-  </main>
+        <div id="responseOutput" aria-live="polite" aria-atomic="true">Escolha uma cidade ou busque municípios por estado para começar.</div>
+        <pre id="rawOutput" class="response-view" hidden>Nenhuma resposta recebida.</pre>
+      </section>
+    </main>
+  </div>
 
   <script src="js/api.js"></script>
   <script src="js/app.js"></script>

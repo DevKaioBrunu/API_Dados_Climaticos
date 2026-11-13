@@ -3,10 +3,15 @@ const cors = require('cors');
 const axios = require('axios');
 const climaRoutes = require('./routes/clima');
 const cidadesRoutes = require('./routes/cidades');
+const { createLogger } = require('./observability/logger');
+const { createRequestMiddleware } = require('./observability/requestMiddleware');
+const { startMetricsServer } = require('./observability/metricsServer');
 
 const app = express();
 const PORT = 3000;
+const logger = createLogger();
 
+app.use(createRequestMiddleware());
 app.use(cors());
 app.use(express.json());
 
@@ -22,7 +27,11 @@ app.get('/api/v1/health', async (req, res) => {
       versao: '1.0.0',
       timestamp: new Date().toISOString()
     });
-  } catch (error) {
+  } catch {
+    res.locals.observability = {
+      provider: 'IBGE',
+      health_status: 'degraded',
+    };
     return res.status(200).json({
       status: 'degraded',
       versao: '1.0.0',
@@ -45,9 +54,25 @@ app.use((req, res) => {
 });
 
 if (require.main === module) {
-  app.listen(PORT, () => {
-    console.log(`Servidor rodando em http://localhost:${PORT}`);
+  const apiServer = app.listen(PORT, () => {
+    logger.info({ event: 'api_started', port: PORT }, 'API started');
   });
+
+  startMetricsServer()
+    .then(() => {
+      logger.info(
+        { event: 'metrics_started', port: Number(process.env.METRICS_PORT) || 9100 },
+        'Metrics server started'
+      );
+    })
+    .catch((error) => {
+      logger.fatal(
+        { event: 'metrics_start_failed', error_type: error?.name || 'Error' },
+        'Metrics server failed to start'
+      );
+      apiServer.close(() => process.exit(1));
+      setTimeout(() => process.exit(1), 1000).unref();
+    });
 }
 
 module.exports = app;

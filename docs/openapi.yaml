@@ -1,0 +1,118 @@
+openapi: 3.1.0
+info:
+  title: API Dados Climáticos
+  version: 1.0.0
+  description: >-
+    Contrato observado para consulta climática por município. A resposta depende
+    das consultas ao IBGE e à Open-Meteo.
+servers:
+  - url: http://localhost:3000
+    description: API local conforme a configuração atual
+paths:
+  /api/v1/clima/{nome_cidade}:
+    get:
+      summary: Consultar previsão climática de uma cidade
+      operationId: consultarClimaPorCidade
+      parameters:
+        - name: nome_cidade
+          in: path
+          required: true
+          description: Nome do município; deve conter pelo menos dois caracteres.
+          schema:
+            type: string
+            minLength: 2
+          example: Fortaleza
+      responses:
+        '200':
+          description: Previsão consultada com sucesso.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [nome, estado, clima, consultado_em]
+                properties:
+                  nome:
+                    type: string
+                  estado:
+                    type: string
+                    description: Sigla da unidade federativa.
+                  clima:
+                    type: object
+                    required: [temperatura_min, temperatura_max, condicao, unidades]
+                    properties:
+                      temperatura_min:
+                        type: number
+                      temperatura_max:
+                        type: number
+                      condicao:
+                        type: string
+                      unidades:
+                        type: object
+                        required: [temperatura]
+                        properties:
+                          temperatura:
+                            type: string
+                            example: °C
+                  consultado_em:
+                    type: string
+                    format: date-time
+        '400':
+          description: Nome inválido.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+              example:
+                erro: true
+                codigo: NOME_INVALIDO
+                mensagem: O nome da cidade deve conter pelo menos 2 caracteres
+                nome_informado: X
+        '404':
+          description: Município não encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+              example:
+                erro: true
+                codigo: CIDADE_NAO_ENCONTRADA
+                mensagem: Nenhuma cidade encontrada com o nome informado
+                nome_informado: Cidade Inexistente
+        '503':
+          description: Serviço externo indisponível.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+              example:
+                erro: true
+                codigo: SERVICO_EXTERNO_INDISPONIVEL
+                mensagem: Não foi possível obter dados do serviço externo. Tente novamente em alguns instantes
+                servico: OPEN_METEO
+        '500':
+          description: Erro interno não classificado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Erro'
+              example:
+                erro: true
+                codigo: ERRO_INTERNO
+                mensagem: Erro interno do servidor
+components:
+  schemas:
+    Erro:
+      type: object
+      required: [erro, codigo, mensagem]
+      properties:
+        erro:
+          type: boolean
+          const: true
+        codigo:
+          type: string
+        mensagem:
+          type: string
+        nome_informado:
+          type: string
+        servico:
+          type: string

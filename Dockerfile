@@ -10,6 +10,7 @@ RUN npm ci --omit=dev
 COPY backend/src ./backend/src
 
 EXPOSE 3000
+EXPOSE 9100
 
 USER node
 
